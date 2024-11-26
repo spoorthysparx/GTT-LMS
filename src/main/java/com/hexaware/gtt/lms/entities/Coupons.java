@@ -1,0 +1,96 @@
+package com.hexaware.gtt.lms.entities;
+
+import java.util.UUID;
+ 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+ 
+@Entity
+public class Coupons {
+ 
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private UUID couponId;
+ 
+	@ManyToOne
+	@JoinColumn(name = "tier_id")
+	private Tiers tier_id;
+ 
+	private String couponTitle;
+	private String couponDescription;
+	private int validity;
+	private String couponCode;
+	private int benefits;
+ 
+	private boolean status;
+ 
+ 
+	public UUID getCouponId() {
+		return couponId;
+	}
+ 
+	public void setCouponId(UUID couponId) {
+		this.couponId = couponId;
+	}
+ 
+	public Tiers getTier_id() {
+		return tier_id;
+	}
+ 
+	public void setTier_id(Tiers tier_id) {
+		this.tier_id = tier_id;
+	}
+ 
+	public String getCouponTitle() {
+		return couponTitle;
+	}
+ 
+	public void setCouponTitle(String couponTitle) {
+		this.couponTitle = couponTitle;
+	}
+ 
+	public String getCouponDescription() {
+		return couponDescription;
+	}
+ 
+	public void setCouponDescription(String couponDescription) {
+		this.couponDescription = couponDescription;
+	}
+ 
+	public int getValidity() {
+		return validity;
+	}
+ 
+	public void setValidity(int validity) {
+		this.validity = validity;
+	}
+ 
+	public String getCouponCode() {
+		return couponCode;
+	}
+ 
+	public void setCouponCode(String couponCode) {
+		this.couponCode = couponCode;
+	}
+ 
+	public int getBenefits() {
+		return benefits;
+	}
+ 
+	public void setBenefits(int benefits) {
+		this.benefits = benefits;
+	}
+ 
+	public boolean getStatus() {
+		return status;
+	}
+ 
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+ 
+}
