@@ -29,7 +29,7 @@ public class UserCouponServiceImpl implements UserCouponService {
         String generatedCouponCode;
         do {
         	couponCode = generateRandomCouponCode(6);
-        } while (userCouponRepository.existsCouponByCouponCode(couponCode));
+        } while (userCouponRepository.existsById(couponCode));
          UserCoupons newCoupon = new UserCoupons(couponCode, coupon,user , java.time.LocalDateTime.now(), UserCouponStatus.ACTIVE, java.time.LocalDateTime.now(), java.time.LocalDateTime.now());
         return newCoupon;
     }
