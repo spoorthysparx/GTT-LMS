@@ -30,7 +30,7 @@ public class UserCoupons {
 	private LocalDateTime issuedOn;
 
 	@Enumerated(EnumType.STRING)
-	private UserCouponStatus status;
+	private UserCouponStatus status = UserCouponStatus.ACTIVE;
 
 	private LocalDateTime expiry;
 	private LocalDateTime couponUsedDate;

@@ -1,5 +1,6 @@
 package com.hexaware.gtt.lms.repositories;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,5 +11,6 @@ public interface UserCouponRepository extends JpaRepository<UserCoupons, String>
 
 	UserCoupons findCouponByCouponCode(String couponCode);
 	boolean existsCouponByCouponCode(String couponCode);
+	List<UserCoupons> findByUserId(UUID user_id);
 
 }
