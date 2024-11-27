@@ -1,12 +1,14 @@
-/*package com.hexaware.gtt.lms.servicesImpl;
-
+package com.hexaware.gtt.lms.servicesImpl;
 import java.util.Random;
 import java.util.UUID;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
- 
+
+import com.hexaware.gtt.lms.entities.Coupons;
 import com.hexaware.gtt.lms.entities.UserCoupons;
 import com.hexaware.gtt.lms.entities.Users;
+import com.hexaware.gtt.lms.enums.UserCouponStatus;
+import com.hexaware.gtt.lms.repositories.CouponRepository;
 import com.hexaware.gtt.lms.repositories.TierRepository;
 import com.hexaware.gtt.lms.repositories.UserCouponRepository;
 import com.hexaware.gtt.lms.repositories.UserRepository;
@@ -18,26 +20,27 @@ public class UserCouponServiceImpl implements UserCouponService {
     private UserCouponRepository userCouponRepository;
     private TierRepository tierRepository;
     private UserRepository userRepository;
- 
-    public String generate(UUID couponId) {
-        String coupon;
-        UserCoupons userCoupon = userCouponRepository.getById(couponId);
-        UUID tierId = userRepository.getTierId(u_id);
-        tierRepository.getCouponProbablity(tierId);
+    private CouponRepository couponRepository;
+    
+    public UserCoupons generateCoupon(UUID couponId, UUID u_id) {
+        String couponCode;
+       Coupons coupon = couponRepository.findById(couponId).orElse(null);
+       Users user = userRepository.findById(u_id).orElse(null);
+        String generatedCouponCode;
         do {
-            coupon = generateRandomCouponCode(6);
-        } while (generatedCoupons.contains(coupon));
-        generatedCoupons.add(coupon);
-        return coupon;
+        	couponCode = generateRandomCouponCode(6);
+        } while (userCouponRepository.existsCouponByCouponCode(couponCode));
+         UserCoupons newCoupon = new UserCoupons(couponCode, coupon,user , java.time.LocalDateTime.now(), UserCouponStatus.ACTIVE, java.time.LocalDateTime.now(), java.time.LocalDateTime.now());
+        return newCoupon;
     }
  
-    public boolean redeemCoupon(String couponCode) {
-        String coupon;
-        UserCoupons userCoupon = userCouponRepository.findCouponByCouponCode(couponCode);
-        Users currentUser = userCoupon.getUser_id();
-        UUID u_id = currentUser.getuId();
-        UUID tierId = userRepository.getTierId(u_id);
-        tierRepository.getCouponProbablity(tierId);
+	public boolean redeemCoupon(String couponCode) {
+//        String coupon;
+//        UserCoupons userCoupon = userCouponRepository.findCouponByCouponCode(couponCode);
+//        Users currentUser = userCoupon.getUser_id();
+//        UUID u_id = currentUser.getuId();
+//        UUID tierId = userRepository.getTierId(u_id);
+//        tierRepository.getCouponProbablity(tierId);
         return false;
     }
  
@@ -51,13 +54,12 @@ public class UserCouponServiceImpl implements UserCouponService {
         return couponCode.toString();
     }
  
-    public String awardCoupon() {
-        if (Math.random() < couponProbability) {
-            return generateUniqueCoupon();
-        } else {
-            return null;
-        }
-    }
+//    public String awardCoupon() {
+//        if (Math.random() < couponProbability) {
+//            return generateUniqueCoupon();
+//        } else {
+//            return null;
+//        }
+//    }
  
 }
-*/
