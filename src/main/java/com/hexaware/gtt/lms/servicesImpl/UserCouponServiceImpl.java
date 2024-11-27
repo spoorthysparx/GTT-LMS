@@ -13,7 +13,7 @@ import com.hexaware.gtt.lms.entities.UserCoupons;
 import com.hexaware.gtt.lms.entities.Users;
 import com.hexaware.gtt.lms.enums.UserCouponStatus;
 import com.hexaware.gtt.lms.repositories.CouponRepository;
-import com.hexaware.gtt.lms.repositories.TierRepository;
+//import com.hexaware.gtt.lms.repositories.TierRepository;
 import com.hexaware.gtt.lms.repositories.UserCouponRepository;
 import com.hexaware.gtt.lms.repositories.UserRepository;
 import com.hexaware.gtt.lms.services.UserCouponService;
@@ -22,10 +22,11 @@ public class UserCouponServiceImpl implements UserCouponService {
  
     @Autowired
     private UserCouponRepository userCouponRepository;
-    private TierRepository tierRepository;
+    //private TierRepository tierRepository;
     private UserRepository userRepository;
     private CouponRepository couponRepository;
     
+    @Override
     public UserCoupons generateCoupon(CouponGenerationDto couponGenerationDto) {
         String couponCode;
         UUID couponId=couponGenerationDto.getCouponId();
@@ -40,7 +41,8 @@ public class UserCouponServiceImpl implements UserCouponService {
         return userCouponRepository.save(newCoupon);
         
      }
- 
+
+    @Override
 	public boolean redeemCoupon(String couponCode) {
 //        String coupon;
 //        UserCoupons userCoupon = userCouponRepository.findCouponByCouponCode(couponCode);
@@ -50,7 +52,8 @@ public class UserCouponServiceImpl implements UserCouponService {
 //        tierRepository.getCouponProbablity(tierId);
         return false;
     }
- 
+    
+    
     private String generateRandomCouponCode(int length) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         Random random = new Random();
