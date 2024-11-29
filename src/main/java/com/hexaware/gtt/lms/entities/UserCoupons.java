@@ -24,7 +24,7 @@ public class UserCoupons {
 
 	@ManyToOne
 	@JoinColumn(name = "u_id")
-	private Users user_id;
+	private Users userId;
 
 	@Column(updatable = false)
 	private LocalDateTime issuedOn;
@@ -42,12 +42,12 @@ public class UserCoupons {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserCoupons(String couponCode, Coupons couponId, Users user_id, LocalDateTime issuedOn, UserCouponStatus status,
+	public UserCoupons(String couponCode, Coupons couponId, Users userId, LocalDateTime issuedOn, UserCouponStatus status,
 			LocalDateTime expiry, LocalDateTime couponUsedDate) {
 		super();
 		this.couponCode = couponCode;
 		this.couponId = couponId;
-		this.user_id = user_id;
+		this.userId = userId;
 		this.issuedOn = issuedOn;
 		this.status = status;
 		this.expiry = expiry;
@@ -71,11 +71,11 @@ public class UserCoupons {
 	}
 
 	public Users getUser_id() {
-		return user_id;
+		return userId;
 	}
 
-	public void setUser_id(Users user_id) {
-		this.user_id = user_id;
+	public void setUser_id(Users userId) {
+		this.userId = userId;
 	}
 
 	public LocalDateTime getIssuedOn() {

@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.hexaware.gtt.lms.entities.Tiers;
 
 public interface TierRepository extends JpaRepository<Tiers, UUID> {
-	float getCouponProbablity(UUID TierId);
+	//float getCouponProbablity(UUID TierId);
 }

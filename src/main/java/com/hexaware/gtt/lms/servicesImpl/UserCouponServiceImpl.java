@@ -1,5 +1,6 @@
 package com.hexaware.gtt.lms.servicesImpl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -7,13 +8,11 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hexaware.gtt.lms.dto.CouponGenerationDto;
- 
 import com.hexaware.gtt.lms.entities.Coupons;
 import com.hexaware.gtt.lms.entities.UserCoupons;
 import com.hexaware.gtt.lms.entities.Users;
 import com.hexaware.gtt.lms.enums.UserCouponStatus;
 import com.hexaware.gtt.lms.repositories.CouponRepository;
-//import com.hexaware.gtt.lms.repositories.TierRepository;
 import com.hexaware.gtt.lms.repositories.UserCouponRepository;
 import com.hexaware.gtt.lms.repositories.UserRepository;
 import com.hexaware.gtt.lms.services.UserCouponService;
@@ -42,17 +41,6 @@ public class UserCouponServiceImpl implements UserCouponService {
         
      }
 
-    @Override
-	public boolean redeemCoupon(String couponCode) {
-//        String coupon;
-//        UserCoupons userCoupon = userCouponRepository.findCouponByCouponCode(couponCode);
-//        Users currentUser = userCoupon.getUser_id();
-//        UUID u_id = currentUser.getuId();
-//        UUID tierId = userRepository.getTierId(u_id);
-//        tierRepository.getCouponProbablity(tierId);
-        return false;
-    }
-    
     
     private String generateRandomCouponCode(int length) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -73,15 +61,18 @@ public class UserCouponServiceImpl implements UserCouponService {
 //    }
 
 
-    public boolean validateCoupon(String couponCode, UUID user_id) {
-        List<UserCoupons> userCoupons = userCouponRepository.findByUserId(user_id);
-        for (UserCoupons coupons : userCoupons) {
-            if (coupons.getCouponCode().equals(couponCode) && coupons.getStatus() == UserCouponStatus.ACTIVE) {
-                return true;
-
+    public String redeemCoupon(String couponCode, UUID user_id) {
+        List<UserCoupons> userCoupons = userCouponRepository.findCouponByUserId_UId(user_id);
+        for (UserCoupons coupon : userCoupons ) {
+            if (coupon.getCouponCode().equals(couponCode) && coupon.getStatus() == UserCouponStatus.ACTIVE){
+                    coupon.setStatus(UserCouponStatus.USED);
+                    coupon.setCouponUsedDate(LocalDateTime.now());
+                    userCouponRepository.save(coupon);
+                }
+                
+            
             }
-        }
-        return false;
+        return "coupon does not exist or might be expired";
     }
 }
  
