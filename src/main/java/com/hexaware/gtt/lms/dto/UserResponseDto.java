@@ -3,14 +3,15 @@ package com.hexaware.gtt.lms.dto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.hexaware.gtt.lms.entities.Partner;
 import com.hexaware.gtt.lms.entities.Tiers;
 
-public class UserDto {
+public class UserResponseDto {
 
 	private UUID uId;
     private long userId;
-    private UUID partnerId;
-    private UUID tierId;
+    private Tiers tiers;
+    private Partner partners;
     private int totalPoints;
     private LocalDateTime expiry;
 
@@ -22,22 +23,12 @@ public class UserDto {
         this.userId = userId;
     }
 
-    
-
-    public UUID getPartnerId() {
-		return partnerId;
+	public Tiers getTiers() {
+		return tiers;
 	}
 
-	public void setPartnerId(UUID partnerId) {
-		this.partnerId = partnerId;
-	}
-
-	public UUID getTierId() {
-		return tierId;
-	}
-
-	public void setTierId(UUID tierId) {
-		this.tierId = tierId;
+	public void setTiers(Tiers tiers) {
+		this.tiers = tiers;
 	}
 
 	public int getTotalPoints() {
@@ -63,8 +54,15 @@ public class UserDto {
 	public void setuId(UUID uId) {
 		this.uId = uId;
 	}
-    
-    
-    
+
+	public Partner getPartners() {
+		return partners;
+	}
+
+	public void setPartners(Partner partners) {
+		this.partners = partners;
+	}
+	
+	
     
 }
