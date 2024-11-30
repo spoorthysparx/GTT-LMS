@@ -23,7 +23,6 @@ public class Coupons {
 	private String couponTitle;
 	private String couponDescription;
 	private int validity;
-	private String couponCode;
 	private int benefits;
  
 	private boolean status;
@@ -69,13 +68,6 @@ public class Coupons {
 		this.validity = validity;
 	}
  
-	public String getCouponCode() {
-		return couponCode;
-	}
- 
-	public void setCouponCode(String couponCode) {
-		this.couponCode = couponCode;
-	}
  
 	public int getBenefits() {
 		return benefits;
@@ -92,5 +84,14 @@ public class Coupons {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+
+	@Override
+	public String toString() {
+		return "Coupons [couponId=" + couponId + ", tiers=" + tiers + ", couponTitle=" + couponTitle
+				+ ", couponDescription=" + couponDescription + ", validity=" + validity + ", benefits=" + benefits
+				+ ", status=" + status + "]";
+	}
+	
+	
  
 }

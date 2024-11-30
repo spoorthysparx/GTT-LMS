@@ -1,27 +1,24 @@
 package com.hexaware.gtt.lms.dto;
 
+import java.util.UUID;
+
 import com.hexaware.gtt.lms.entities.Tiers;
 
 public class CouponsDto {
-    private Tiers tier_id;
+	
+	private UUID couponId;
+    private UUID tierId;
  
 	private String couponTitle;
 	private String couponDescription;
 	private int validity;
-	private String couponCode;
 	private int benefits;
  
 	private boolean status;
 
-    public Tiers getTier_id() {
-        return tier_id;
-    }
-
-    public void setTier_id(Tiers tier_id) {
-        this.tier_id = tier_id;
-    }
-
-    public String getCouponTitle() {
+    
+   
+	public String getCouponTitle() {
         return couponTitle;
     }
 
@@ -45,13 +42,6 @@ public class CouponsDto {
         this.validity = validity;
     }
 
-    public String getCouponCode() {
-        return couponCode;
-    }
-
-    public void setCouponCode(String couponCode) {
-        this.couponCode = couponCode;
-    }
 
     public int getBenefits() {
         return benefits;
@@ -69,5 +59,24 @@ public class CouponsDto {
         this.status = status;
     }
 
+	public UUID getCouponId() {
+		return couponId;
+	}
+
+	public void setCouponId(UUID couponId) {
+		this.couponId = couponId;
+	}
+
+	public UUID getTierId() {
+		return tierId;
+	}
+
+	public void setTierId(UUID tierId) {
+		this.tierId = tierId;
+	}
+
+	
+
+    
 
 }

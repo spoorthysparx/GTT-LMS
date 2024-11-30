@@ -12,7 +12,7 @@ import com.hexaware.gtt.lms.entities.Coupons;
 import com.hexaware.gtt.lms.entities.UserCoupons;
 import com.hexaware.gtt.lms.entities.Users;
 import com.hexaware.gtt.lms.enums.UserCouponStatus;
-import com.hexaware.gtt.lms.repositories.CouponRepository;
+import com.hexaware.gtt.lms.repositories.CouponsRepository;
 import com.hexaware.gtt.lms.repositories.UserCouponRepository;
 import com.hexaware.gtt.lms.repositories.UserRepository;
 import com.hexaware.gtt.lms.services.UserCouponService;
@@ -23,7 +23,7 @@ public class UserCouponServiceImpl implements UserCouponService {
     private UserCouponRepository userCouponRepository;
     //private TierRepository tierRepository;
     private UserRepository userRepository;
-    private CouponRepository couponRepository;
+    private CouponsRepository couponRepository;
     
     @Override
     public UserCoupons generateCoupon(CouponGenerationDto couponGenerationDto) {

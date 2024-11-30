@@ -30,7 +30,9 @@ public class Offers {
     private LocalDateTime startDate = LocalDateTime.now();
 
     private int benefit;
+    private boolean status;
 
+    
 
     public UUID getOfferId() {
         return offerId;
@@ -88,4 +90,13 @@ public class Offers {
         this.benefit = benefit;
     }
 
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+    
 }
