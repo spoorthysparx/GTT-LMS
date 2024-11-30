@@ -10,19 +10,19 @@ import org.springframework.stereotype.Service;
 import com.hexaware.gtt.lms.dto.CouponsDto;
 import com.hexaware.gtt.lms.entities.Coupons;
 import com.hexaware.gtt.lms.entities.Tiers;
-import com.hexaware.gtt.lms.repositories.CouponsRepository;
+import com.hexaware.gtt.lms.repositories.CouponRepository;
 import com.hexaware.gtt.lms.repositories.TiersRepository;
 import com.hexaware.gtt.lms.services.CouponsService;
  
 @Service
 public class CouponsServiceImpl implements CouponsService{
 	
-private CouponsRepository couponsRepository;
+private CouponRepository couponsRepository;
 private TiersRepository tiersRepository;
 private ModelMapper modelMapper;
 	
 	@Autowired
-	public CouponsServiceImpl(CouponsRepository couponsRepository, ModelMapper modelMapper, TiersRepository tiersRepository) {
+	public CouponsServiceImpl(CouponRepository couponsRepository, ModelMapper modelMapper, TiersRepository tiersRepository) {
 	super();
 	this.couponsRepository = couponsRepository;
 	this.modelMapper = modelMapper;

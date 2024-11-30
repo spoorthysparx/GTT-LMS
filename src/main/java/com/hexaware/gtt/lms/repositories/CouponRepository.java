@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.hexaware.gtt.lms.entities.Coupons;
 @Repository
-public interface CouponsRepository extends JpaRepository<Coupons, UUID>{
+public interface CouponRepository extends JpaRepository<Coupons, UUID>{
 
 }
