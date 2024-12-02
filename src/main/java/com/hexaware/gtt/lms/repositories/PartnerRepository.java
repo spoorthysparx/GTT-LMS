@@ -10,6 +10,8 @@ import com.hexaware.gtt.lms.entities.Partner;
 public interface PartnerRepository extends JpaRepository<Partner, UUID> {
 
 	public Partner findByEmail(String email);
+
+	public Object findByContact(Long contact);
 	
 	
 }

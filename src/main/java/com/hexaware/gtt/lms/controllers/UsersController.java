@@ -22,6 +22,7 @@ import com.hexaware.gtt.lms.dto.UserDto;
 import com.hexaware.gtt.lms.dto.UserResponseDto;
 import com.hexaware.gtt.lms.entities.Offers;
 import com.hexaware.gtt.lms.entities.Users;
+import com.hexaware.gtt.lms.exception.ResourceNotFoundException;
 import com.hexaware.gtt.lms.services.UserService;
 
 @RestController
@@ -35,7 +36,7 @@ public class UsersController {
 	private UserService userService;
 	
 	@PostMapping("/createUser")
-	public ResponseEntity<UserResponseDto> createUser(@RequestBody UserDto userDto){
+	public ResponseEntity<UserResponseDto> createUser(@RequestBody UserDto userDto) throws ResourceNotFoundException{
 		
 	    Users user=userService.createUsers(userDto);
 	    UserResponseDto userResponseDto=modelMapper.map(user, UserResponseDto.class);
@@ -55,14 +56,14 @@ public class UsersController {
 	}
 
 	@GetMapping("/getUserById")
-	public ResponseEntity<UserResponseDto> getUserById(@RequestParam("uId") UUID uid){
+	public ResponseEntity<UserResponseDto> getUserById(@RequestParam("uId") UUID uid) throws ResourceNotFoundException{
 		Users user = this.userService.getUserById(uid);
 		UserResponseDto userResponseDto= this.modelMapper.map(user,UserResponseDto.class);
 		return ResponseEntity.ok(userResponseDto);
 	}
 	
 	@PutMapping("/updateUser")
-   public ResponseEntity<UserResponseDto> updateUsers(@RequestBody UserDto usersDto,@RequestParam("uId") UUID u_id) {
+   public ResponseEntity<UserResponseDto> updateUsers(@RequestBody UserDto usersDto,@RequestParam("uId") UUID u_id) throws ResourceNotFoundException {
 		
 		Users user=this.userService.updateUser(usersDto,u_id);
 		UserResponseDto userResponseDto= this.modelMapper.map(user,UserResponseDto.class);
@@ -70,7 +71,7 @@ public class UsersController {
 	}
 		
 	@DeleteMapping("/deleteUsers")
-	public ResponseEntity<String> deleteUser(@RequestParam("uId") UUID u_id) {
+	public ResponseEntity<String> deleteUser(@RequestParam("uId") UUID u_id) throws ResourceNotFoundException {
 		String s = this.userService.deleteUser(u_id);
 		return ResponseEntity.ok(s);
 	}

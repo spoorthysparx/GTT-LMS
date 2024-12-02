@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hexaware.gtt.lms.dto.OffersDto;
 import com.hexaware.gtt.lms.dto.OffersResponseDto;
 import com.hexaware.gtt.lms.entities.Offers;
+import com.hexaware.gtt.lms.exception.ResourceNotFoundException;
 import com.hexaware.gtt.lms.services.OffersService;
  
 @RestController
@@ -36,7 +37,7 @@ public class OffersController {
 	}
  
 	@PostMapping("/createOffers")
-	public ResponseEntity<OffersResponseDto> createOffers(@RequestBody OffersDto offersDto) {
+	public ResponseEntity<OffersResponseDto> createOffers(@RequestBody OffersDto offersDto) throws ResourceNotFoundException {
 		Offers offers=this.offersService.createOffers(offersDto);
 		OffersResponseDto offerResponseDto=this.modelMapper.map(offers,OffersResponseDto.class);
 		return ResponseEntity.ok(offerResponseDto);
@@ -54,14 +55,14 @@ public class OffersController {
 	}
 	
 	@GetMapping("/getOfferById")
-	public ResponseEntity<OffersResponseDto> getOfferById(@RequestParam("offer_id") UUID offer_id ) {
+	public ResponseEntity<OffersResponseDto> getOfferById(@RequestParam("offer_id") UUID offer_id ) throws ResourceNotFoundException {
 		Offers offer = this.offersService.getOfferById(offer_id);
 		OffersResponseDto offerResponseDto= this.modelMapper.map(offer,OffersResponseDto.class);
 		return ResponseEntity.ok(offerResponseDto);
 	}
 	
 	@PutMapping("/updateOffers")
-	public ResponseEntity<OffersResponseDto> updateOffers(@RequestBody OffersDto offersDto,@RequestParam("offer_id") UUID offer_id) {
+	public ResponseEntity<OffersResponseDto> updateOffers(@RequestBody OffersDto offersDto,@RequestParam("offer_id") UUID offer_id) throws ResourceNotFoundException {
 		
 		Offers offer=this.offersService.updateOffers(offersDto,offer_id);
 		OffersResponseDto offerResponseDto= this.modelMapper.map(offer,OffersResponseDto.class);
@@ -69,7 +70,7 @@ public class OffersController {
 	}
 		
 	@DeleteMapping("/deleteOffers")
-	public ResponseEntity<String> deleteOffers(@RequestParam("offer_id") UUID offer_id) {
+	public ResponseEntity<String> deleteOffers(@RequestParam("offer_id") UUID offer_id) throws ResourceNotFoundException {
 		String s = this.offersService.deleteOffers(offer_id);
 		return ResponseEntity.ok(s);
 	}

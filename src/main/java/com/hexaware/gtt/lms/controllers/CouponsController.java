@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hexaware.gtt.lms.dto.CouponsDto;
 import com.hexaware.gtt.lms.dto.CouponsResponseDto;
 import com.hexaware.gtt.lms.entities.Coupons;
+import com.hexaware.gtt.lms.exception.ResourceNotFoundException;
 import com.hexaware.gtt.lms.services.CouponsService;
  
 @RestController
@@ -37,7 +38,7 @@ public class CouponsController {
 	}
 	
 	@PostMapping("/createCoupons")
-	public ResponseEntity<CouponsResponseDto> createCoupons(@RequestBody CouponsDto couponsDto) {
+	public ResponseEntity<CouponsResponseDto> createCoupons(@RequestBody CouponsDto couponsDto) throws ResourceNotFoundException {
 		Coupons coupons=this.couponsService.createCoupons(couponsDto);
 		CouponsResponseDto couponResponseDto=this.modelMapper.map(coupons,CouponsResponseDto.class);
 		couponResponseDto.setTiers(coupons.getTiers());
@@ -60,21 +61,21 @@ public class CouponsController {
 	}
 	
 	@GetMapping("/getCouponById")
-	public ResponseEntity<CouponsResponseDto> getCouponsById(@RequestParam("coupon_id") UUID coupon_id){
+	public ResponseEntity<CouponsResponseDto> getCouponsById(@RequestParam("coupon_id") UUID coupon_id) throws ResourceNotFoundException{
 		Coupons coupon = this.couponsService.getCouponsById(coupon_id);
 		CouponsResponseDto couponsResponseDto=this.modelMapper.map(coupon, CouponsResponseDto.class);
 		return ResponseEntity.ok(couponsResponseDto);
 	}
 	
 	@PutMapping("/putCoupons")
-	public ResponseEntity<CouponsResponseDto> updateCoupons(@RequestBody CouponsDto couponsDto,@RequestParam("coupon_id") UUID coupon_id) {
+	public ResponseEntity<CouponsResponseDto> updateCoupons(@RequestBody CouponsDto couponsDto,@RequestParam("coupon_id") UUID coupon_id) throws ResourceNotFoundException {
 		Coupons coupon=this.couponsService.updateCoupons(couponsDto,coupon_id);
 		CouponsResponseDto couponResponseDto=this.modelMapper.map(coupon, CouponsResponseDto.class);
 		return ResponseEntity.ok(couponResponseDto);
 	}
 	
 	@DeleteMapping("/deleteCoupons")
-	public ResponseEntity<String> deleteCoupons(@RequestParam("coupon_id") UUID coupon_id){
+	public ResponseEntity<String> deleteCoupons(@RequestParam("coupon_id") UUID coupon_id) throws ResourceNotFoundException{
 		String s = this.couponsService.deleteCoupons(coupon_id);
 		return ResponseEntity.ok(s);
 	}
