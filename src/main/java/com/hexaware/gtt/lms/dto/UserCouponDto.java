@@ -21,7 +21,7 @@ public class UserCouponDto {
 
 
 
-	private UUID UId;
+	private UUID uId;
 
 	private UUID couponId;
 
@@ -38,12 +38,6 @@ public class UserCouponDto {
 	}
 	public void setCouponCode(String couponCode) {
 		this.couponCode = couponCode;
-	}
-	public UUID getUId() {
-		return UId;
-	}
-	public void setUId(UUID uId) {
-		UId = uId;
 	}
 	public LocalDateTime getIssuedOn() {
 		return issuedOn;
@@ -73,7 +67,7 @@ public class UserCouponDto {
 			LocalDateTime expiry, LocalDateTime couponUsedDate) {
 		super();
 		this.couponCode = couponCode;
-		UId = uId;
+		uId = uId;
 		this.issuedOn = issuedOn;
 		this.status = status;
 		this.expiry = expiry;
@@ -90,6 +84,14 @@ public class UserCouponDto {
 
     public void setCouponId(UUID couponId) {
         this.couponId = couponId;
+    }
+
+    public UUID getuId() {
+        return uId;
+    }
+
+    public void setuId(UUID uId) {
+        this.uId = uId;
     }
 	
 	
