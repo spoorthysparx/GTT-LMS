@@ -35,10 +35,11 @@ public class PartnerServiceImpl implements PartnerService {
 		else {
 			System.out.println("else condition");
 			Partner partner=modelmapper.map(ptrdto, Partner.class);
-			Partner part = partnerRepository.save(partner); 
+			Partner part = partnerRepository.save(partner);
 			return part;
 		}	
 	}
+
  
 	@Override
 	public Partner getPartnerById(UUID id) throws ResourceNotFoundException {

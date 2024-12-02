@@ -11,9 +11,7 @@ import com.hexaware.gtt.lms.exception.ResourceNotFoundException;
  
  
 public interface PartnerService {
-	
 	public Partner createPartner(PartnerDto ptrdto) throws DuplicateDataException;
-	
 	Partner getPartnerById(UUID id) throws ResourceNotFoundException;
  
 	long getPartnerCount();
