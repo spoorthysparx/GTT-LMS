@@ -55,10 +55,11 @@ public class PartnerController {
 	public ResponseEntity<?> createPartner(@Valid @RequestBody PartnerDto prtDto) 
 	{
 		try {
-			System.out.println("entered controller try");
+			if(prtDto.getCountryCode()==0) {
+				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Please give country code");
+			}
 			Partner part;
 			part = partnerService.createPartner(prtDto);
-			System.out.println("came out of service");
 			PartnerDto partDto=modelmapper.map(part,PartnerDto.class);
 			return ResponseEntity.ok(partDto);
 		} catch (DuplicateDataException e) {
