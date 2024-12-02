@@ -5,12 +5,13 @@ import java.util.UUID;
 
 import com.hexaware.gtt.lms.dto.UserDto;
 import com.hexaware.gtt.lms.entities.Users;
+import com.hexaware.gtt.lms.exception.ResourceNotFoundException;
 
 public interface UserService {
 	
-	public Users createUsers(UserDto userDto);
+	public Users createUsers(UserDto userDto) throws ResourceNotFoundException;
 	public List<Users> getUsers();
-	public Users getUserById(UUID uId);
-    public Users updateUser(UserDto userDto,UUID uId);
-    public String deleteUser(UUID uId);
+	public Users getUserById(UUID uId) throws ResourceNotFoundException;
+    public Users updateUser(UserDto userDto,UUID uId) throws ResourceNotFoundException;
+    public String deleteUser(UUID uId) throws ResourceNotFoundException;
 }

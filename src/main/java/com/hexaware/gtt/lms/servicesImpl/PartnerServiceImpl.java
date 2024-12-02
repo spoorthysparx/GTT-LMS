@@ -1,41 +1,36 @@
 package com.hexaware.gtt.lms.servicesImpl;
-
+ 
 import java.util.List;
 import java.util.UUID;
-
+ 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+ 
 import com.hexaware.gtt.lms.dto.PartnerDto;
 import com.hexaware.gtt.lms.entities.Partner;
+import com.hexaware.gtt.lms.exception.DuplicateDataException;
+import com.hexaware.gtt.lms.exception.ResourceDeletionException;
+import com.hexaware.gtt.lms.exception.ResourceNotFoundException;
 import com.hexaware.gtt.lms.repositories.PartnerRepository;
 import com.hexaware.gtt.lms.services.PartnerService;
-
+ 
 @Service
 public class PartnerServiceImpl implements PartnerService {
-	
 	@Autowired
 	private PartnerRepository partnerRepository;
-	
 	@Autowired
 	private ModelMapper modelmapper;
-	
-//	public Partner findByEmail(String email)throws Exception
-//	{
-//		Partner part=this.partnerRepository.findByEmail(email);
-//		if(part==null)
-//		{
-//			throw new Exception();
-//		}
-//		return part;
-//	}
-	
-	public Partner createPartner(PartnerDto ptrdto)throws Exception
+
+ 
+	public Partner createPartner(PartnerDto ptrdto)throws DuplicateDataException
 	{
 		if(partnerRepository.findByEmail(ptrdto.getEmail())!=null) {
 			System.out.println("35");
-			throw new Exception();
+			throw new DuplicateDataException("partner","email",ptrdto.getEmail());
+		}
+		else if(partnerRepository.findByContact(ptrdto.getContact())!=null) {
+			throw new DuplicateDataException("partner","contact",ptrdto.getContact().toString());
 		}
 		else {
 			System.out.println("else condition");
@@ -44,41 +39,40 @@ public class PartnerServiceImpl implements PartnerService {
 			return part;
 		}	
 	}
-
+ 
 	@Override
-	public Partner getPartnerById(UUID id) throws Exception {
-		 
+	public Partner getPartnerById(UUID id) throws ResourceNotFoundException {
 		 if(id==null)
 		 {
-			 throw new Exception();
+			 throw new ResourceNotFoundException("Partner", "id", id);
 		 }
 		 Partner part=partnerRepository.findById(id).get();
 		return part;
 	}
-
+ 
 	@Override
 	public long getPartnerCount() {
 		 Long partcount=partnerRepository.count();
 		return partcount;
 	}
-
+ 
 	@Override
-	public List<Partner> getAllPartners() throws Exception {
+	public List<Partner> getAllPartners() throws ResourceNotFoundException {
 		List<Partner> ptlist=partnerRepository.findAll();
 		if(ptlist==null) {
-			throw new Exception();
+			throw new ResourceNotFoundException("Partners list is empty");
 		}
 		else {
 			return ptlist;
 		}
 	}
-
+ 
 	@Override
-	public Partner updatePartner(String email, PartnerDto partnerDto) throws Exception {
+	public Partner updatePartner(String email, PartnerDto partnerDto) throws ResourceNotFoundException {
 		Partner part=this.partnerRepository.findByEmail(email);
 		if(part==null)
 		{
-			throw new Exception();
+			throw new ResourceNotFoundException("Partners", "email", email);
 		}
 		else {
 			part.setPartnerName(partnerDto.getPartnerName());
@@ -86,17 +80,15 @@ public class PartnerServiceImpl implements PartnerService {
 			part.setContact(partnerDto.getContact());
 			Partner savedPartner = partnerRepository.save(part);
 			return savedPartner;
-			
 		}
 	}
-
+ 
 	@Override
-	public boolean deletePartner(UUID id) throws Exception {
+	public boolean deletePartner(UUID id) throws ResourceDeletionException {
 		Partner part=partnerRepository.findById(id).get();
 		if(part.equals(null))
 		{
-			throw new Exception();
-			
+			throw new ResourceDeletionException("Partner "+id+" not found to delete");
 		}
 		partnerRepository.deleteById(id);		
 		if(partnerRepository.existsById(id))
@@ -108,5 +100,5 @@ public class PartnerServiceImpl implements PartnerService {
 			return true;
 		}
 	}
-
+ 
 }

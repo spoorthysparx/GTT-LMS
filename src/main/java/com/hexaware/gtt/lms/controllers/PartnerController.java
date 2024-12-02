@@ -1,9 +1,9 @@
 package com.hexaware.gtt.lms.controllers;
-
+ 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
+ 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,27 +17,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
+ 
 import com.hexaware.gtt.lms.dto.PartnerDto;
 import com.hexaware.gtt.lms.entities.Partner;
+import com.hexaware.gtt.lms.exception.DuplicateDataException;
+import com.hexaware.gtt.lms.exception.ResourceDeletionException;
+import com.hexaware.gtt.lms.exception.ResourceNotFoundException;
 import com.hexaware.gtt.lms.services.PartnerService;
-
+ 
 import jakarta.validation.Valid;
-
+ 
 @RestController
 @RequestMapping("/lms/api/v1/partner/")
 @ResponseBody
 public class PartnerController {
-	
 	private PartnerService partnerService;
 	private ModelMapper modelmapper;
-	
 	@Autowired
 	public PartnerController(PartnerService partnerService, ModelMapper modelmapper) {
 		this.partnerService = partnerService;
 		this.modelmapper = modelmapper;
 	}	
-	
+	// http://localhost:8080/lms/api/v1/partner/getPartnerById/?id=
 	@GetMapping("getPartnerById/")
 	public ResponseEntity<?> getbyId(@RequestParam("id") UUID id)
 	{
@@ -45,12 +46,11 @@ public class PartnerController {
 			Partner part=partnerService.getPartnerById(id);
 			PartnerDto partDto=modelmapper.map(part, PartnerDto.class);
 			return ResponseEntity.ok(partDto);
-		}catch(Exception e){
-			
-			return ResponseEntity.ok("partner Id is not Exist");
+		}catch(ResourceNotFoundException e){
+			return ResponseEntity.ok(e.getMessage());
 		}		
 	}
-	
+	// http://localhost:8080/lms/api/v1/partner/register/	
 	@PostMapping("register/")
 	public ResponseEntity<?> createPartner(@Valid @RequestBody PartnerDto prtDto) 
 	{
@@ -61,18 +61,17 @@ public class PartnerController {
 			System.out.println("came out of service");
 			PartnerDto partDto=modelmapper.map(part,PartnerDto.class);
 			return ResponseEntity.ok(partDto);
-		} catch (Exception e) {
-				return ResponseEntity.ok("partner is already Exist");
+		} catch (DuplicateDataException e) {
+				return ResponseEntity.ok(e.getMessage());
 		}
-				
 	}
-	
+	// http://localhost:8080/lms/api/v1/partner/partnercount/
 	@GetMapping("partnercount/")
 	public ResponseEntity<?> getPartnerCount(){
 		long partnerCount = partnerService.getPartnerCount();
 		return ResponseEntity.ok(partnerCount);
 	}
-	
+	// http://localhost:8080/lms/api/v1/partner/getAllPartners/
 	@GetMapping("getAllPartners/")
 	public ResponseEntity<?> getAllPartners(){
 		try {
@@ -82,22 +81,22 @@ public class PartnerController {
 				partDtoList.add(modelmapper.map(p, PartnerDto.class));
 			}
 			return ResponseEntity.ok(partDtoList);
-		}catch(Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No partners registered yet");
+		}catch(ResourceNotFoundException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}
 	}
-	
+	// http://localhost:8080/lms/api/v1/partner/updatePartner/?email=amitabh.dei@example.com
 	@PutMapping("updatePartner/")
 	public ResponseEntity<?> updatePartner(@RequestParam("email") String email, @Valid @RequestBody PartnerDto partnerDto){
 		try {
 			Partner partner = partnerService.updatePartner(email, partnerDto);
 			PartnerDto partDto = modelmapper.map(partner, PartnerDto.class);
 			return ResponseEntity.ok(partDto);
-		}catch(Exception e){
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Partner not existed with the given email");
+		}catch(ResourceNotFoundException e){
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}
 	}
-	
+	// http://localhost:8080/lms/api/v1/partner/deletePartnerById/?id=ca95f0e3-b162-404f-9d32-f01d01dc6c68
 	@DeleteMapping("deletePartnerById/")
 	public ResponseEntity<?> deletePartner(@RequestParam("id") UUID id){
 		try {
@@ -108,10 +107,9 @@ public class PartnerController {
 			else {
 				return ResponseEntity.ok("Unsuccessfull deletion attempt");
 			}
-		}catch(Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Partner not existed with the given id");
+		}catch(ResourceDeletionException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}
 	}
-	
-	
+
 }

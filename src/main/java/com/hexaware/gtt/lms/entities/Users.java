@@ -18,7 +18,7 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uId;
 
-    private long userId; //from partner db
+    private long userId;
 
     @ManyToOne
     @JoinColumn(name = "partner_id", nullable = false, updatable = false)

@@ -1,23 +1,26 @@
 package com.hexaware.gtt.lms.services;
-
+ 
 import java.util.List;
 import java.util.UUID;
-
+ 
 import com.hexaware.gtt.lms.dto.PartnerDto;
 import com.hexaware.gtt.lms.entities.Partner;
-
-
+import com.hexaware.gtt.lms.exception.DuplicateDataException;
+import com.hexaware.gtt.lms.exception.ResourceDeletionException;
+import com.hexaware.gtt.lms.exception.ResourceNotFoundException;
+ 
+ 
 public interface PartnerService {
 	
-	public Partner createPartner(PartnerDto ptrdto) throws Exception;
+	public Partner createPartner(PartnerDto ptrdto) throws DuplicateDataException;
 	
-	Partner getPartnerById(UUID id) throws Exception;
-
+	Partner getPartnerById(UUID id) throws ResourceNotFoundException;
+ 
 	long getPartnerCount();
-
-	List<Partner> getAllPartners() throws Exception;
-
-	Partner updatePartner(String email, PartnerDto partnerDto) throws Exception;
-
-	boolean deletePartner(UUID id) throws Exception;
+ 
+	List<Partner> getAllPartners() throws ResourceNotFoundException;
+ 
+	Partner updatePartner(String email, PartnerDto partnerDto) throws ResourceNotFoundException;
+ 
+	boolean deletePartner(UUID id) throws ResourceDeletionException;
 }
