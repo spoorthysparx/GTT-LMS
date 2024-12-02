@@ -23,6 +23,8 @@ public class UserCouponDto {
 
 	private UUID UId;
 
+	private UUID couponId;
+
 	@Column(updatable = false)
 	private LocalDateTime issuedOn;
 
@@ -81,6 +83,14 @@ public class UserCouponDto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+    public UUID getCouponId() {
+        return couponId;
+    }
+
+    public void setCouponId(UUID couponId) {
+        this.couponId = couponId;
+    }
 	
 	
 

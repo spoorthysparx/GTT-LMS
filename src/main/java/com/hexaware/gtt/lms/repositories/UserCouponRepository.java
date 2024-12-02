@@ -15,6 +15,9 @@ public interface UserCouponRepository extends JpaRepository<UserCoupons, String>
 
 	boolean existsCouponByCouponCode(String couponCode);
 
-	List<UserCoupons> findCouponByUsers_UId(UUID userId);
+	List<UserCoupons> findCouponByUsers_UId(UUID UId);
+
+	UserCoupons findUserCouponsByCouponCode(String couponCode);
+
 
 }

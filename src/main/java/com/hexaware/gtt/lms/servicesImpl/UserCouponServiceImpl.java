@@ -2,19 +2,24 @@ package com.hexaware.gtt.lms.servicesImpl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.gtt.lms.dto.CouponGenerationDto;
+import com.hexaware.gtt.lms.dto.UserCouponDto;
 import com.hexaware.gtt.lms.dto.UserPartnerDto;
+import com.hexaware.gtt.lms.dto.UserValidationDto;
 import com.hexaware.gtt.lms.entities.Coupons;
 import com.hexaware.gtt.lms.entities.UserCoupons;
 import com.hexaware.gtt.lms.entities.Users;
 import com.hexaware.gtt.lms.enums.UserCouponStatus;
 import com.hexaware.gtt.lms.repositories.CouponRepository;
+import com.hexaware.gtt.lms.repositories.PartnerRepository;
 import com.hexaware.gtt.lms.repositories.TiersRepository;
 import com.hexaware.gtt.lms.repositories.UserCouponRepository;
 import com.hexaware.gtt.lms.repositories.UserRepository;
@@ -34,13 +39,17 @@ public class UserCouponServiceImpl implements UserCouponService {
 	private CouponRepository couponRepository;
 
 	@Autowired
+	private ModelMapper modelMapper;
+
+	@Autowired
 	public UserCouponServiceImpl(UserCouponRepository userCouponRepository, TiersRepository tierRepository,
-			UserRepository userRepository, CouponRepository couponRepository) {
+			UserRepository userRepository, CouponRepository couponRepository, ModelMapper modelMapper) {
 		super();
 		this.userCouponRepository = userCouponRepository;
 		this.tierRepository = tierRepository;
 		this.userRepository = userRepository;
 		this.couponRepository = couponRepository;
+		this.modelMapper = modelMapper;
 	}
 
 	@Override
@@ -122,16 +131,50 @@ public class UserCouponServiceImpl implements UserCouponService {
 	}
 
 	@Override
-	public String redeemCoupon(String couponCode, UUID user_id) {
-		List<UserCoupons> userCoupons = userCouponRepository.findCouponByUsers_UId(user_id);
+	public boolean validateCoupon(UserValidationDto userValidationDto) {
+		List<UserCoupons> userCoupons = this.userCouponRepository.findCouponByUsers_UId(userValidationDto.getuId());
+		//System.out.println("checked coupons" + userCoupons);
 		for (UserCoupons coupon : userCoupons) {
-			if (coupon.getCouponCode().equals(couponCode) && coupon.getStatus() == UserCouponStatus.ACTIVE) {
-				coupon.setStatus(UserCouponStatus.USED);
-				coupon.setCouponUsedDate(LocalDateTime.now());
-				userCouponRepository.save(coupon);
+			if (coupon.getCouponCode().equals(userValidationDto.getCouponCode())){
+				if(coupon.getStatus() == UserCouponStatus.ACTIVE){
+					return true;
+				}
+				else if(isCouponExpired(coupon)){
+					coupon.setStatus(UserCouponStatus.EXPIRED);
+					this.userCouponRepository.save(coupon);
+					return false;
+				}
+				else{
+					return false;
+				}
 			}
-
+	
 		}
-		return "coupon does not exist or might be expired";
+				return false;
+
 	}
+	
+
+	@Override
+	public boolean redeemCoupon(UserValidationDto userValidationDto){
+		UserCoupons userCoupons = this.modelMapper.map(userValidationDto,UserCoupons.class);
+		if(validateCoupon(userValidationDto)){
+			Users user = userRepository.findByUId(userValidationDto.getuId());
+			userCoupons.setUsers(user);
+            userCoupons.setStatus(UserCouponStatus.USED);
+            userCoupons.setCouponUsedDate(LocalDateTime.now());
+            this.userCouponRepository.save(userCoupons);
+            return true;
+        }
+
+        return false;
+
+
+    }
+
+    private boolean isCouponExpired(UserCoupons coupon){
+		System.out.println(coupon.getExpiry());
+		System.out.println(LocalDateTime.now());
+        return coupon.getExpiry().isBefore(LocalDateTime.now());
+    }
 }

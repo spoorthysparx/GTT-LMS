@@ -61,7 +61,7 @@ public class UserCoupons {
 		this.couponCode = couponCode;
 	}
 
-	public Coupons getCouponId() {
+	public Coupons getCoupons() {
 		return coupons;
 	}
 

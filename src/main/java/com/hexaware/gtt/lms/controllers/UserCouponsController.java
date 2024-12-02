@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hexaware.gtt.lms.dto.CouponGenerationDto;
 import com.hexaware.gtt.lms.dto.UserCouponDto;
 import com.hexaware.gtt.lms.dto.UserPartnerDto;
+import com.hexaware.gtt.lms.dto.UserValidationDto;
 import com.hexaware.gtt.lms.entities.UserCoupons;
 import com.hexaware.gtt.lms.services.UserCouponService;
 
@@ -60,4 +62,27 @@ public class UserCouponsController {
 		}		
 	}
 	
-}
+	@PostMapping("/validate")
+	public ResponseEntity<?> validateCoupon(@RequestBody UserValidationDto userValidationDto) {
+		boolean isValid = userCouponService.validateCoupon(userValidationDto);
+		if (isValid){
+			return ResponseEntity.ok(userValidationDto);
+		}
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("coupon expired or used");
+
+	}
+
+	@PostMapping("/redeem")
+	public ResponseEntity<?> redeemCoupon(@RequestBody UserValidationDto userValidationDto) {
+		boolean isValid = userCouponService.redeemCoupon(userValidationDto);
+		if (isValid){
+			return ResponseEntity.ok(userValidationDto);
+		}
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("coupon expired or used");
+
+	}
+	}
+	
+

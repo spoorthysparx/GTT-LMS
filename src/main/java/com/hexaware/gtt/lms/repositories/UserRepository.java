@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.hexaware.gtt.lms.entities.Tiers;
 import com.hexaware.gtt.lms.entities.Users;
+import java.util.List;
+
 
 @Repository
 public interface UserRepository extends JpaRepository<Users, UUID> {
@@ -16,4 +18,5 @@ public interface UserRepository extends JpaRepository<Users, UUID> {
 	UUID getTierByUId(@Param("uId") UUID uId);
 	@Query("SELECT u.uId FROM Users u WHERE u.partner.id = :partnerId AND u.userId = :userId")
 	UUID findUIdByPartnerIdAndUserId(@Param("partnerId") UUID partnerId, @Param("userId") Long userId);
+	Users findByUId(UUID uId);
 }

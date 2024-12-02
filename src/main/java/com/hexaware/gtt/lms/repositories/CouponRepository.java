@@ -13,4 +13,6 @@ import com.hexaware.gtt.lms.entities.Coupons;
 public interface CouponRepository extends JpaRepository<Coupons, UUID>{
 	@Query(value = "SELECT coupon_id FROM coupons WHERE tier_id =:tierId", nativeQuery = true)
     List<UUID> findCouponsByTierId(@Param("tierId") UUID tierId);
+
+    Coupons findCouponsByCouponId(UUID couponId);
 }
