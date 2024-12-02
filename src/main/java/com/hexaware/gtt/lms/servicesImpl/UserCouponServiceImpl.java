@@ -132,11 +132,11 @@ public class UserCouponServiceImpl implements UserCouponService {
 
 	@Override
 	public boolean validateCoupon(UserValidationDto userValidationDto) {
-		List<UserCoupons> userCoupons = this.userCouponRepository.findCouponByUsers_UId(userValidationDto.getuId());
-		//System.out.println("checked coupons" + userCoupons);
+		List<UserCoupons> userCoupons = this.userCouponRepository.findUserCouponsByUsers_UId(userValidationDto.getuId());
+		System.out.println("checked coupons" + userCoupons);
 		for (UserCoupons coupon : userCoupons) {
 			if (coupon.getCouponCode().equals(userValidationDto.getCouponCode())){
-				if(coupon.getStatus() == UserCouponStatus.ACTIVE){
+				if(coupon.getStatus() == UserCouponStatus.ACTIVE && !isCouponExpired(coupon)){
 					return true;
 				}
 				else if(isCouponExpired(coupon)){
@@ -157,19 +157,18 @@ public class UserCouponServiceImpl implements UserCouponService {
 
 	@Override
 	public boolean redeemCoupon(UserValidationDto userValidationDto){
-		UserCoupons userCoupons = this.modelMapper.map(userValidationDto,UserCoupons.class);
+//		UserCoupons userCoupons = this.modelMapper.map(userValidationDto,UserCoupons.class);
 		if(validateCoupon(userValidationDto)){
-			Users user = userRepository.findByUId(userValidationDto.getuId());
-			userCoupons.setUsers(user);
-            userCoupons.setStatus(UserCouponStatus.USED);
-            userCoupons.setCouponUsedDate(LocalDateTime.now());
-            this.userCouponRepository.save(userCoupons);
+			UserCoupons userCoupon = userCouponRepository.findByCouponCode(userValidationDto.getCouponCode());
+			userCoupon.setStatus(UserCouponStatus.USED);
+			userCoupon.setCouponUsedDate(LocalDateTime.now());
+            this.userCouponRepository.save(userCoupon);
             return true;
         }
-
+ 
         return false;
-
-
+ 
+ 
     }
 
     private boolean isCouponExpired(UserCoupons coupon){

@@ -48,7 +48,7 @@ public class UserCouponsController {
 				CouponGenerationDto couponGenerationDto = new CouponGenerationDto(couponId,uId);
 				UserCoupons userCoupons =userCouponService.generateCoupon(couponGenerationDto);
 				userCouponDto=modelmapper.map(userCoupons, UserCouponDto.class);
-				userCouponDto.setUId(userCoupons.getUsers().getuId());
+				userCouponDto.setuId(userCoupons.getUsers().getuId());
 				System.out.println("User coupon"+ userCouponDto);
 			}
 			else {
@@ -66,7 +66,7 @@ public class UserCouponsController {
 	public ResponseEntity<?> validateCoupon(@RequestBody UserValidationDto userValidationDto) {
 		boolean isValid = userCouponService.validateCoupon(userValidationDto);
 		if (isValid){
-			return ResponseEntity.ok(userValidationDto);
+			return ResponseEntity.ok("CouponCode"+" "+userValidationDto.getCouponCode()+" "+ "is valid");
 		}
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("coupon expired or used");
@@ -77,7 +77,7 @@ public class UserCouponsController {
 	public ResponseEntity<?> redeemCoupon(@RequestBody UserValidationDto userValidationDto) {
 		boolean isValid = userCouponService.redeemCoupon(userValidationDto);
 		if (isValid){
-			return ResponseEntity.ok(userValidationDto);
+			return ResponseEntity.ok("CouponCode"+" "+userValidationDto.getCouponCode()+" "+ "is successfully redeemed");
 		}
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("coupon expired or used");
