@@ -1,14 +1,18 @@
 package com.hexaware.gtt.lms.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -82,6 +86,29 @@ public class UserCouponsController {
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("coupon expired or used");
 
+	}
+	
+	@GetMapping("getActiveCoupons/")
+	public ResponseEntity<?> listOfActiveCoupons(@RequestParam("uId") UUID uId){
+		List<UserCoupons> userCoupons=userCouponService.listOfActiveCoupons(uId);
+		List<UserCouponDto> userCouponDtoList=new ArrayList<>();
+		for(UserCoupons u: userCoupons) {
+			UserCouponDto userCouponDto=this.modelmapper.map(u, UserCouponDto.class);
+			userCouponDto.setuId(u.getUsers().getuId());
+			userCouponDtoList.add(userCouponDto);
+		}
+		return ResponseEntity.ok(userCouponDtoList);
+	}
+	@GetMapping("getAllUserCoupons/")
+	public ResponseEntity<?> listOfAllCoupons(@RequestParam UUID uId){
+		List<UserCoupons> userCoupons=userCouponService.listOfAllCoupons(uId);
+		List<UserCouponDto> userCouponDtoList=new ArrayList<>();
+		for(UserCoupons u:userCoupons) {
+			UserCouponDto userCouponDto=this.modelmapper.map(u, UserCouponDto.class);
+			userCouponDto.setuId(u.getUsers().getuId());
+			userCouponDtoList.add(userCouponDto);
+		}
+		return ResponseEntity.ok(userCouponDtoList);
 	}
 	}
 	

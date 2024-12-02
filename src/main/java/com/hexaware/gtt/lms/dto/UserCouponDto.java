@@ -33,11 +33,38 @@ public class UserCouponDto {
 
 	private LocalDateTime expiry;
 	private LocalDateTime couponUsedDate;
+	public UserCouponDto(String couponCode, UUID uId, UUID couponId, LocalDateTime issuedOn, UserCouponStatus status,
+			LocalDateTime expiry, LocalDateTime couponUsedDate) {
+		super();
+		this.couponCode = couponCode;
+		this.uId = uId;
+		this.couponId = couponId;
+		this.issuedOn = issuedOn;
+		this.status = status;
+		this.expiry = expiry;
+		this.couponUsedDate = couponUsedDate;
+	}
+	public UserCouponDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public String getCouponCode() {
 		return couponCode;
 	}
 	public void setCouponCode(String couponCode) {
 		this.couponCode = couponCode;
+	}
+	public UUID getuId() {
+		return uId;
+	}
+	public void setuId(UUID uId) {
+		this.uId = uId;
+	}
+	public UUID getCouponId() {
+		return couponId;
+	}
+	public void setCouponId(UUID couponId) {
+		this.couponId = couponId;
 	}
 	public LocalDateTime getIssuedOn() {
 		return issuedOn;
@@ -63,37 +90,7 @@ public class UserCouponDto {
 	public void setCouponUsedDate(LocalDateTime couponUsedDate) {
 		this.couponUsedDate = couponUsedDate;
 	}
-	public UserCouponDto(String couponCode, UUID uId, LocalDateTime issuedOn, UserCouponStatus status,
-			LocalDateTime expiry, LocalDateTime couponUsedDate) {
-		super();
-		this.couponCode = couponCode;
-		uId = uId;
-		this.issuedOn = issuedOn;
-		this.status = status;
-		this.expiry = expiry;
-		this.couponUsedDate = couponUsedDate;
-	}
-	public UserCouponDto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
-    public UUID getCouponId() {
-        return couponId;
-    }
-
-    public void setCouponId(UUID couponId) {
-        this.couponId = couponId;
-    }
-
-    public UUID getuId() {
-        return uId;
-    }
-
-    public void setuId(UUID uId) {
-        this.uId = uId;
-    }
-	
 	
 
 	
