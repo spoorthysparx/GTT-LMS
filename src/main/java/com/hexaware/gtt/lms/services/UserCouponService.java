@@ -23,4 +23,5 @@ public interface UserCouponService {
 	  public boolean validateCoupon(UserValidationDto userValidationDto);
 	  public List<UserCoupons> listOfActiveCoupons(UUID uId);
 	  public List<UserCoupons> listOfAllCoupons(UUID uId);
+	  
 }

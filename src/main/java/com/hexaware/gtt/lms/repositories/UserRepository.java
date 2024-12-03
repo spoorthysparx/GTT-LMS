@@ -16,7 +16,9 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<Users, UUID> {
 	@Query("SELECT t.tierId FROM Users u JOIN u.tiers t WHERE u.uId = :uId")
 	UUID getTierByUId(@Param("uId") UUID uId);
+	
 	@Query("SELECT u.uId FROM Users u WHERE u.partner.id = :partnerId AND u.userId = :userId")
 	UUID findUIdByPartnerIdAndUserId(@Param("partnerId") UUID partnerId, @Param("userId") Long userId);
+	
 	Users findByUId(UUID uId);
 }
