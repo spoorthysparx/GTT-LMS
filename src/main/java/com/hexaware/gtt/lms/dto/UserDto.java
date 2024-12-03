@@ -11,7 +11,7 @@ public class UserDto {
     private long userId;
     private UUID partnerId;
     private UUID tierId;
-    private int totalPoints;
+    private Double totalPoints;
     private LocalDateTime expiry;
 
     public long getUserId() {
@@ -40,15 +40,16 @@ public class UserDto {
 		this.tierId = tierId;
 	}
 
-	public int getTotalPoints() {
-        return totalPoints;
-    }
+	
+    public Double getTotalPoints() {
+		return totalPoints;
+	}
 
-    public void setTotalPoints(int totalPoints) {
-        this.totalPoints = totalPoints;
-    }
+	public void setTotalPoints(Double totalPoints) {
+		this.totalPoints = totalPoints;
+	}
 
-    public LocalDateTime getExpiry() {
+	public LocalDateTime getExpiry() {
         return expiry;
     }
 

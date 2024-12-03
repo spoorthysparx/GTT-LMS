@@ -53,12 +53,12 @@ public class UserCouponsController {
 				UserCoupons userCoupons =userCouponService.generateCoupon(couponGenerationDto);
 				userCouponDto=modelmapper.map(userCoupons, UserCouponDto.class);
 				userCouponDto.setuId(userCoupons.getUsers().getuId());
+				userCouponDto.setCouponId(couponId);
 				System.out.println("User coupon"+ userCouponDto);
 			}
 			else {
-				System.out.println("Better luck");
-				userCouponDto = new UserCouponDto();
-			}
+				return ResponseEntity.ok("better luck next time");
+				}
 			return ResponseEntity.ok(userCouponDto);
 		}catch(Exception e){
 			
@@ -66,7 +66,7 @@ public class UserCouponsController {
 		}		
 	}
 	
-	@PostMapping("/validate")
+	@PostMapping("validate")
 	public ResponseEntity<?> validateCoupon(@RequestBody UserValidationDto userValidationDto) {
 		boolean isValid = userCouponService.validateCoupon(userValidationDto);
 		if (isValid){
@@ -77,7 +77,7 @@ public class UserCouponsController {
 
 	}
 
-	@PostMapping("/redeem")
+	@PostMapping("redeem")
 	public ResponseEntity<?> redeemCoupon(@RequestBody UserValidationDto userValidationDto) {
 		boolean isValid = userCouponService.redeemCoupon(userValidationDto);
 		if (isValid){
@@ -95,6 +95,7 @@ public class UserCouponsController {
 		for(UserCoupons u: userCoupons) {
 			UserCouponDto userCouponDto=this.modelmapper.map(u, UserCouponDto.class);
 			userCouponDto.setuId(u.getUsers().getuId());
+			//userCouponDto.setCouponId(couponId);
 			userCouponDtoList.add(userCouponDto);
 		}
 		return ResponseEntity.ok(userCouponDtoList);
@@ -106,6 +107,7 @@ public class UserCouponsController {
 		for(UserCoupons u:userCoupons) {
 			UserCouponDto userCouponDto=this.modelmapper.map(u, UserCouponDto.class);
 			userCouponDto.setuId(u.getUsers().getuId());
+			//userCouponDto.setCouponId(couponId);
 			userCouponDtoList.add(userCouponDto);
 		}
 		return ResponseEntity.ok(userCouponDtoList);
