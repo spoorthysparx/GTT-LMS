@@ -6,13 +6,21 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hexaware.gtt.lms.dto.UserCouponRequestDto;
 import com.hexaware.gtt.lms.dto.PointsAmountRequestDto;
 import com.hexaware.gtt.lms.dto.PointsAmountResponseDto;
+import com.hexaware.gtt.lms.dto.UserCouponResponseDto;
+import com.hexaware.gtt.lms.dto.UserValidationDto;
+import com.hexaware.gtt.lms.entities.Coupons;
 import com.hexaware.gtt.lms.entities.Tiers;
+import com.hexaware.gtt.lms.entities.UserCoupons;
 import com.hexaware.gtt.lms.entities.Users;
 import com.hexaware.gtt.lms.repositories.TiersRepository;
+import com.hexaware.gtt.lms.repositories.UserCouponRepository;
 import com.hexaware.gtt.lms.repositories.UserRepository;
 import com.hexaware.gtt.lms.services.TransactionService;
+import com.hexaware.gtt.lms.services.UserCouponService;
+import com.hexaware.gtt.lms.services.UserService;
 @Service
 public class TransactionServiceImpl implements TransactionService{
 
@@ -22,6 +30,11 @@ public class TransactionServiceImpl implements TransactionService{
 	private UserRepository userRepository;
 	@Autowired
 	private TiersRepository tiersRepository;
+	@Autowired
+	private UserCouponRepository userCouponRepository;
+	@Autowired
+	private UserCouponService userCouponService;
+
 	
 	
 	
@@ -57,6 +70,34 @@ public class TransactionServiceImpl implements TransactionService{
 		return pointsAmountResponseDto;
 		
 	}
+
+	@Override
+	public UserCouponResponseDto applyCoupon(UserCouponRequestDto userCouponRequestDto){
+		UserCoupons userCoupon = userCouponRepository.findByCouponCode(userCouponRequestDto.getCouponCode());
+		Coupons couponId = userCouponRepository.findCouponByCouponCode(userCoupon);
+		Double discountPercentage = couponId.getPercentage();
+		Double maxLimit = couponId.getMaxLimit();
+		Double discountedAmt = (discountPercentage)*(userCouponRequestDto.getAmount());
+		UserCouponResponseDto userCouponResponseDto = new UserCouponResponseDto();
+		UserValidationDto userValidationDto = new UserValidationDto();
+		userValidationDto.setCouponCode(userCouponRequestDto.getCouponCode());
+		userValidationDto.setuId(userCouponRequestDto.getuId());
+		if(userCouponService.validateCoupon(userValidationDto)){
+			if(discountedAmt<=maxLimit){
+			userCouponResponseDto.setAmountDiscounted(discountedAmt);
+			userCouponResponseDto.setFinalAmount(userCouponRequestDto.getAmount() - discountedAmt);
+		}
+		else{
+			userCouponResponseDto.setAmountDiscounted(maxLimit);
+			userCouponResponseDto.setFinalAmount(userCouponRequestDto.getAmount() - maxLimit);
+
+		}}
+		return userCouponResponseDto;
+
+
+
+	}
+	
 	
 
 }
