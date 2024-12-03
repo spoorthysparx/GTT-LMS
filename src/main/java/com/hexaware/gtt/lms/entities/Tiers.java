@@ -24,7 +24,7 @@ public class Tiers {
     private double triggerAmount;
     private int triggerDuration; //days
     private double accrualMultiplier;
-    private int redemptionLimitOfPurchase;
+    private double redemptionLimitOfPurchase;
     private double conversion;
     private String description;
     private float couponProbability;
@@ -86,15 +86,16 @@ public class Tiers {
         this.accrualMultiplier = accrualMultiplier;
     }
 
-    public int getRedemptionLimitOfPurchase() {
-        return redemptionLimitOfPurchase;
-    }
 
-    public void setRedemptionLimitOfPurchase(int redemptionLimitOfPurchase) {
-        this.redemptionLimitOfPurchase = redemptionLimitOfPurchase;
-    }
+    public double getRedemptionLimitOfPurchase() {
+		return redemptionLimitOfPurchase;
+	}
 
-    public String getDescription() {
+	public void setRedemptionLimitOfPurchase(double redemptionLimitOfPurchase) {
+		this.redemptionLimitOfPurchase = redemptionLimitOfPurchase;
+	}
+
+	public String getDescription() {
         return description;
     }
 

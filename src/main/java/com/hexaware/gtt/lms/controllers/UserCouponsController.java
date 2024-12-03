@@ -1,14 +1,18 @@
 package com.hexaware.gtt.lms.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,12 +53,12 @@ public class UserCouponsController {
 				UserCoupons userCoupons =userCouponService.generateCoupon(couponGenerationDto);
 				userCouponDto=modelmapper.map(userCoupons, UserCouponDto.class);
 				userCouponDto.setuId(userCoupons.getUsers().getuId());
+				userCouponDto.setCouponId(couponId);
 				System.out.println("User coupon"+ userCouponDto);
 			}
 			else {
-				System.out.println("Better luck");
-				userCouponDto = new UserCouponDto();
-			}
+				return ResponseEntity.ok("better luck next time");
+				}
 			return ResponseEntity.ok(userCouponDto);
 		}catch(Exception e){
 			
@@ -62,7 +66,7 @@ public class UserCouponsController {
 		}		
 	}
 	
-	@PostMapping("/validate")
+	@PostMapping("validate")
 	public ResponseEntity<?> validateCoupon(@RequestBody UserValidationDto userValidationDto) {
 		boolean isValid = userCouponService.validateCoupon(userValidationDto);
 		if (isValid){
@@ -73,7 +77,7 @@ public class UserCouponsController {
 
 	}
 
-	@PostMapping("/redeem")
+	@PostMapping("redeem")
 	public ResponseEntity<?> redeemCoupon(@RequestBody UserValidationDto userValidationDto) {
 		boolean isValid = userCouponService.redeemCoupon(userValidationDto);
 		if (isValid){
@@ -82,6 +86,31 @@ public class UserCouponsController {
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("coupon expired or used");
 
+	}
+	
+	@GetMapping("getActiveCoupons/")
+	public ResponseEntity<?> listOfActiveCoupons(@RequestParam("uId") UUID uId){
+		List<UserCoupons> userCoupons=userCouponService.listOfActiveCoupons(uId);
+		List<UserCouponDto> userCouponDtoList=new ArrayList<>();
+		for(UserCoupons u: userCoupons) {
+			UserCouponDto userCouponDto=this.modelmapper.map(u, UserCouponDto.class);
+			userCouponDto.setuId(u.getUsers().getuId());
+			//userCouponDto.setCouponId(couponId);
+			userCouponDtoList.add(userCouponDto);
+		}
+		return ResponseEntity.ok(userCouponDtoList);
+	}
+	@GetMapping("getAllUserCoupons/")
+	public ResponseEntity<?> listOfAllCoupons(@RequestParam UUID uId){
+		List<UserCoupons> userCoupons=userCouponService.listOfAllCoupons(uId);
+		List<UserCouponDto> userCouponDtoList=new ArrayList<>();
+		for(UserCoupons u:userCoupons) {
+			UserCouponDto userCouponDto=this.modelmapper.map(u, UserCouponDto.class);
+			userCouponDto.setuId(u.getUsers().getuId());
+			//userCouponDto.setCouponId(couponId);
+			userCouponDtoList.add(userCouponDto);
+		}
+		return ResponseEntity.ok(userCouponDtoList);
 	}
 	}
 	

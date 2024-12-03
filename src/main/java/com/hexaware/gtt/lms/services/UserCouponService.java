@@ -21,4 +21,7 @@ public interface UserCouponService {
 	  public UUID getCouponId(UUID tierId);
 	  public List<UUID> fetchCouponIdsForTier(UUID tierId);
 	  public boolean validateCoupon(UserValidationDto userValidationDto);
+	  public List<UserCoupons> listOfActiveCoupons(UUID uId);
+	  public List<UserCoupons> listOfAllCoupons(UUID uId);
+	  
 }

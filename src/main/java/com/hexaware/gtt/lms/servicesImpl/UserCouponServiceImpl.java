@@ -1,6 +1,7 @@
 package com.hexaware.gtt.lms.servicesImpl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -176,4 +177,34 @@ public class UserCouponServiceImpl implements UserCouponService {
 		System.out.println(LocalDateTime.now());
         return coupon.getExpiry().isBefore(LocalDateTime.now());
     }
+    
+    @Override
+	public List<UserCoupons> listOfActiveCoupons(UUID uId){
+		List<UserCoupons> userCoupons=this.userCouponRepository.getAllUsers(uId);
+		List <UserCoupons> ActiveCoupons=new ArrayList<>();
+		for(UserCoupons u: userCoupons) {
+		ActiveCoupons.add(updateStatus(u));
+		}
+		return ActiveCoupons;
+	}
+	@Override
+	public List<UserCoupons> listOfAllCoupons(UUID uId){
+
+		List<UserCoupons> listOfAll=this.userCouponRepository.getAllUsers(uId);
+		List <UserCoupons> updatedCoupons=new ArrayList<>();
+		for(UserCoupons u:listOfAll) {
+			updatedCoupons.add(updateStatus(u));
+		}
+		return updatedCoupons;
+		
+
+	}
+	
+	public UserCoupons updateStatus(UserCoupons userCoupons) {
+	
+		if(userCoupons.getStatus()==UserCouponStatus.ACTIVE && userCoupons.getExpiry().compareTo(java.time.LocalDateTime.now())<0) {
+			userCoupons.setStatus(UserCouponStatus.EXPIRED);
+		}
+		return userCoupons;
+	}
 }
