@@ -20,7 +20,7 @@ public class Offers {
 
     @ManyToOne
     @JoinColumn(name = "tier_id", nullable=false, updatable=false)
-    private Tiers tier_id;
+    private Tiers tiers;
 
     private String offerTitle;
     private String offerDescription;
@@ -30,7 +30,9 @@ public class Offers {
     private LocalDateTime startDate = LocalDateTime.now();
 
     private int benefit;
+    private boolean status;
 
+    
 
     public UUID getOfferId() {
         return offerId;
@@ -40,12 +42,12 @@ public class Offers {
         this.offerId = offerId;
     }
 
-    public Tiers getTier_id() {
-        return tier_id;
+    public Tiers getTiers() {
+        return tiers;
     }
 
-    public void setTier_id(Tiers tier_id) {
-        this.tier_id = tier_id;
+    public void setTiers(Tiers tiers) {
+        this.tiers = tiers;
     }
 
     public String getOfferTitle() {
@@ -88,4 +90,13 @@ public class Offers {
         this.benefit = benefit;
     }
 
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+    
 }

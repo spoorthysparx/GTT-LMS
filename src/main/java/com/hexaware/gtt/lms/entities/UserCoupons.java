@@ -11,93 +11,104 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
- 
+
 @Entity
 public class UserCoupons {
- 
+
 	@Id
-    private String couponCode;
+	private String couponCode;
+	
+	@ManyToOne
+	@JoinColumn(name = "couponId")
+	private Coupons coupons;
 
-    @ManyToOne
-    @JoinColumn(name = "couponId")
-    private Coupons couponId;
- 
-    @ManyToOne
-    @JoinColumn(name = "u_id")
-    private Users user_id;
-    private LocalDateTime issuedOn;
- 
-    @Enumerated(EnumType.STRING)
-    private UserCouponStatus status;
- 
-    private LocalDateTime expiry;
-    private LocalDateTime couponUsedDate;
- 
-    @Column(updatable = false)
-    private LocalDateTime acquiredDate = LocalDateTime.now();
+	@ManyToOne
+	@JoinColumn(name = "u_id")
+	private Users users;
 
- 
-	public Coupons getCouponId() {
-        return couponId;
-    }
- 
-    public void setCouponId(Coupons couponId) {
-        this.couponId = couponId;
-    }
- 
-    public Users getUser_id() {
-        return user_id;
-    }
- 
-    public void setUser_id(Users user_id) {
-        this.user_id = user_id;
-    }
- 
-    public String getCouponCode() {
-        return couponCode;
-    }
- 
-    public void setCouponCode(String couponCode) {
-        this.couponCode = couponCode;
-    }
- 
-    public LocalDateTime getIssuedOn() {
-        return issuedOn;
-    }
- 
-    public void setIssuedOn(LocalDateTime issuedOn) {
-        this.issuedOn = issuedOn;
-    }
- 
-    public UserCouponStatus getStatus() {
-        return status;
-    }
- 
-    public void setStatus(UserCouponStatus status) {
-        this.status = status;
-    }
- 
-    public LocalDateTime getExpiry() {
-        return expiry;
-    }
- 
-    public void setExpiry(LocalDateTime expiry) {
-        this.expiry = expiry;
-    }
- 
-    public LocalDateTime getCouponUsedDate() {
-        return couponUsedDate;
-    }
- 
-    public void setCouponUsedDate(LocalDateTime couponUsedDate) {
-        this.couponUsedDate = couponUsedDate;
-    }
- 
-    public LocalDateTime getAcquiredDate() {
-        return acquiredDate;
-    }
- 
-    public void setAcquiredDate(LocalDateTime acquiredDate) {
-        this.acquiredDate = acquiredDate;
-    }
+	@Column(updatable = false)
+	private LocalDateTime issuedOn;
+
+	@Enumerated(EnumType.STRING)
+	private UserCouponStatus status = UserCouponStatus.ACTIVE;
+
+	private LocalDateTime expiry;
+	private LocalDateTime couponUsedDate;
+
+	
+
+	public UserCoupons() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public UserCoupons(String couponCode, Coupons coupons, Users users, LocalDateTime issuedOn, UserCouponStatus status,
+			LocalDateTime expiry) {
+		super();
+		this.couponCode = couponCode;
+		this.coupons = coupons;
+		this.users = users;
+		this.issuedOn = issuedOn;
+		this.status = status;
+		this.expiry = expiry;
+	}
+
+	public String getCouponCode() {
+		return couponCode;
+	}
+
+	public void setCouponCode(String couponCode) {
+		this.couponCode = couponCode;
+	}
+
+	public Coupons getCoupons() {
+		return coupons;
+	}
+
+	public void setCoupons(Coupons coupons) {
+		this.coupons = coupons;
+	}
+
+	public Users getUsers() {
+		return users;
+	}
+
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+
+	public LocalDateTime getIssuedOn() {
+		return issuedOn;
+	}
+
+	public void setIssuedOn(LocalDateTime issuedOn) {
+		this.issuedOn = issuedOn;
+	}
+
+	public UserCouponStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(UserCouponStatus status) {
+		this.status = status;
+	}
+
+	public LocalDateTime getExpiry() {
+		return expiry;
+	}
+
+	public void setExpiry(LocalDateTime expiry) {
+		this.expiry = expiry;
+	}
+
+	public LocalDateTime getCouponUsedDate() {
+		return couponUsedDate;
+	}
+
+	public void setCouponUsedDate(LocalDateTime couponUsedDate) {
+		this.couponUsedDate = couponUsedDate;
+	}
+
+
+
 }

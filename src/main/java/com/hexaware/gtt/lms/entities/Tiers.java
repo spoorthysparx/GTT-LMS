@@ -18,18 +18,27 @@ public class Tiers {
 
     @ManyToOne
     @JoinColumn(name = "partner_id", nullable=false, updatable=false)
-    private Partner partner_id;
+    private Partner partner; /* the  partner_id is changed to partner*/
 
     private String tierName;
     private double triggerAmount;
     private int triggerDuration; //days
     private double accrualMultiplier;
-    private int redemptionLimitOfPurchase;
+    private double redemptionLimitOfPurchase;
     private double conversion;
     private String description;
     private float couponProbability;
+    private String colour;
 
-    public UUID getTierId() {
+    public String getColour() {
+		return colour;
+	}
+
+	public void setColour(String colour) {
+		this.colour = colour;
+	}
+
+	public UUID getTierId() {
         return tierId;
     }
 
@@ -38,11 +47,11 @@ public class Tiers {
     }
 
     public Partner getPartner() {
-        return partner_id;
+        return partner;
     }
 
-    public void setPartner(Partner partner_id) {
-        this.partner_id = partner_id;
+    public void setPartner(Partner partner) {
+        this.partner = partner;
     }
 
     public String getTierName() {
@@ -77,15 +86,16 @@ public class Tiers {
         this.accrualMultiplier = accrualMultiplier;
     }
 
-    public int getRedemptionLimitOfPurchase() {
-        return redemptionLimitOfPurchase;
-    }
 
-    public void setRedemptionLimitOfPurchase(int redemptionLimitOfPurchase) {
-        this.redemptionLimitOfPurchase = redemptionLimitOfPurchase;
-    }
+    public double getRedemptionLimitOfPurchase() {
+		return redemptionLimitOfPurchase;
+	}
 
-    public String getDescription() {
+	public void setRedemptionLimitOfPurchase(double redemptionLimitOfPurchase) {
+		this.redemptionLimitOfPurchase = redemptionLimitOfPurchase;
+	}
+
+	public String getDescription() {
         return description;
     }
 
