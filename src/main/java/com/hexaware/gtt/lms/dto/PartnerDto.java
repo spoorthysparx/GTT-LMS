@@ -34,7 +34,7 @@ public class PartnerDto {
 		this.countryCode = countryCode;
 	}
  
-    public Long getContact() {
+    public Long getContact() { 
 		return contact;
 	}
  

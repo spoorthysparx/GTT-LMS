@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.gtt.lms.dto.PointsAmountRequestDto;
 import com.hexaware.gtt.lms.dto.PointsAmountResponseDto;
+import com.hexaware.gtt.lms.dto.UserCouponRequestDto;
+import com.hexaware.gtt.lms.dto.UserCouponResponseDto;
 import com.hexaware.gtt.lms.services.TransactionService;
 @RestController
 @RequestMapping("/api/v1/lms/transactions")
@@ -25,5 +27,11 @@ public class TransactionController {
 	public ResponseEntity<?> finalAmount(@RequestBody PointsAmountRequestDto pointsAmountRequestDto) {
 		PointsAmountResponseDto pointsAmountResponseDto=this.transactionService.finalAmount(pointsAmountRequestDto);
 		return ResponseEntity.ok(pointsAmountResponseDto);
+	}
+
+	@PostMapping("/applyCoupon")
+	public ResponseEntity<?> applyCoupon(@RequestBody UserCouponRequestDto userCouponRequestDto) {
+		UserCouponResponseDto userCouponResponseDto=this.transactionService.applyCoupon(userCouponRequestDto);
+		return ResponseEntity.ok(userCouponResponseDto);
 	}
 }
