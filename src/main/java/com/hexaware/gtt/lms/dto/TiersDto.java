@@ -18,7 +18,7 @@ public class TiersDto {
 	@NotNull
     private double accrualMultiplier;/* for the multiplier of points*/
 	@NotNull
-    private int redemptionLimitOfPurchase; /* limit of how much points can be spent for purchase*/
+    private double redemptionLimitOfPurchase; /* limit of how much points can be spent for purchase*/
 	@NotNull
     private double conversion; /* point to money value */
 	@NotEmpty
@@ -70,11 +70,11 @@ public class TiersDto {
         this.accrualMultiplier = accrualMultiplier;
     }
  
-    public int getRedemptionLimitOfPurchase() {
+    public double getRedemptionLimitOfPurchase() {
         return redemptionLimitOfPurchase;
     }
  
-    public void setRedemptionLimitOfPurchase(int redemptionLimitOfPurchase) {
+    public void setRedemptionLimitOfPurchase(double redemptionLimitOfPurchase) {
         this.redemptionLimitOfPurchase = redemptionLimitOfPurchase;
     }
  
@@ -126,7 +126,7 @@ public class TiersDto {
 	}
  
 	public TiersDto(UUID tierId,String tierName, double triggerAmount, int triggerDuration, double accrualMultiplier,
-			int redemptionLimitOfPurchase, double conversion, String description, float couponProbability,
+			double redemptionLimitOfPurchase, double conversion, String description, float couponProbability,
 			UUID partner_id) {
 		super();
 		this.tierId = tierId;

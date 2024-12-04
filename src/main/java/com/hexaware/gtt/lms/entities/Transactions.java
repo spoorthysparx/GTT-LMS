@@ -101,4 +101,13 @@ public class Transactions {
         return creationDate;
     }
 
+	@Override
+	public String toString() {
+		return "Transactions [transId=" + transId + ", users=" + users + ", paymentId=" + paymentId + ", coupons="
+				+ coupons + ", transactionType=" + transactionType + ", pointsGainedOrLost=" + pointsGainedOrLost
+				+ ", amount=" + amount + ", creationDate=" + creationDate + "]";
+	}
+    
+    
+
 }

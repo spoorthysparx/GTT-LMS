@@ -6,7 +6,7 @@ import com.hexaware.gtt.lms.entities.Tiers;
 
 public class CouponsResponseDto {
 
-	    private Tiers tiers;
+	    private Tiers tier;
 	    private UUID couponId;
 		private String couponTitle;
 		private String couponDescription;
@@ -20,11 +20,11 @@ public class CouponsResponseDto {
 	   
 
 		public Tiers getTiers() {
-			return tiers;
+			return tier;
 		}
 
 		public void setTiers(Tiers tiers) {
-			this.tiers = tiers;
+			this.tier = tiers;
 		}
 
 		

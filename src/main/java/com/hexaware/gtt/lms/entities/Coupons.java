@@ -110,6 +110,13 @@ public class Coupons {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public String toString() {
+		return "Coupons [couponId=" + couponId + ", tiers=" + tiers + ", couponTitle=" + couponTitle
+				+ ", couponDescription=" + couponDescription + ", validity=" + validity + ", maxLimit=" + maxLimit
+				+ ", percentage=" + percentage + ", status=" + status + "]";
+	}
 	
 	
  
