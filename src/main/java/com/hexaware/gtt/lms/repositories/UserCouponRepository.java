@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.hexaware.gtt.lms.entities.Coupons;
 import com.hexaware.gtt.lms.entities.UserCoupons;
 
 @Repository
@@ -29,4 +30,5 @@ public interface UserCouponRepository extends JpaRepository<UserCoupons, String>
 	@Query(value="select * from user_coupons u where u.u_id=:uId", nativeQuery=true)
 	
 	List<UserCoupons> getAllUsers(@Param("uId") UUID uId);
+
 }
