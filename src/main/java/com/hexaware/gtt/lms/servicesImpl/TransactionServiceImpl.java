@@ -6,21 +6,21 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hexaware.gtt.lms.dto.UserCouponRequestDto;
 import com.hexaware.gtt.lms.dto.PointsAmountRequestDto;
 import com.hexaware.gtt.lms.dto.PointsAmountResponseDto;
+import com.hexaware.gtt.lms.dto.UserCouponRequestDto;
 import com.hexaware.gtt.lms.dto.UserCouponResponseDto;
 import com.hexaware.gtt.lms.dto.UserValidationDto;
 import com.hexaware.gtt.lms.entities.Coupons;
 import com.hexaware.gtt.lms.entities.Tiers;
 import com.hexaware.gtt.lms.entities.UserCoupons;
 import com.hexaware.gtt.lms.entities.Users;
+import com.hexaware.gtt.lms.repositories.CouponRepository;
 import com.hexaware.gtt.lms.repositories.TiersRepository;
 import com.hexaware.gtt.lms.repositories.UserCouponRepository;
 import com.hexaware.gtt.lms.repositories.UserRepository;
 import com.hexaware.gtt.lms.services.TransactionService;
 import com.hexaware.gtt.lms.services.UserCouponService;
-import com.hexaware.gtt.lms.services.UserService;
 @Service
 public class TransactionServiceImpl implements TransactionService{
 
@@ -74,9 +74,11 @@ public class TransactionServiceImpl implements TransactionService{
 	@Override
 	public UserCouponResponseDto applyCoupon(UserCouponRequestDto userCouponRequestDto){
 		UserCoupons userCoupon = userCouponRepository.findByCouponCode(userCouponRequestDto.getCouponCode());
-		Coupons couponId = userCouponRepository.findCouponByCouponCode(userCoupon);
-		Double discountPercentage = couponId.getPercentage();
-		Double maxLimit = couponId.getMaxLimit();
+		//System.out.println("usercouponretrived: " + userCoupon);
+		Coupons coupon = userCoupon.getCoupons();
+		//System.out.println("couponidretrived: " +  coupon );
+		Double discountPercentage = coupon.getPercentage();
+		Double maxLimit = coupon.getMaxLimit();
 		Double discountedAmt = (discountPercentage)*(userCouponRequestDto.getAmount());
 		UserCouponResponseDto userCouponResponseDto = new UserCouponResponseDto();
 		UserValidationDto userValidationDto = new UserValidationDto();
