@@ -28,14 +28,33 @@ public class Users {
     @JoinColumn(name = "tier_id", nullable = false, updatable = false)
     private Tiers tiers;
 
-    private Double totalPoints;
+    private double totalPoints;
 
     @Column(updatable = false)
     private final LocalDateTime date = LocalDateTime.now();
 
     private LocalDateTime expiry;
 
-    public UUID getuId() {
+    
+    
+    public Users() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+    
+	public Users(UUID uId, long userId, Partner partner, Tiers tiers, double totalPoints, LocalDateTime expiry) {
+		super();
+		this.uId = uId;
+		this.userId = userId;
+		this.partner = partner;
+		this.tiers = tiers;
+		this.totalPoints = totalPoints;
+		this.expiry = expiry;
+	}
+
+
+	public UUID getuId() {
         return uId;
     }
 
@@ -69,11 +88,11 @@ public class Users {
 
     
 
-    public Double getTotalPoints() {
+    public double getTotalPoints() {
 		return totalPoints;
 	}
 
-	public void setTotalPoints(Double totalPoints) {
+	public void setTotalPoints(double totalPoints) {
 		this.totalPoints = totalPoints;
 	}
 
@@ -88,6 +107,12 @@ public class Users {
     public void setExpiry(LocalDateTime expiry) {
         this.expiry = expiry;
     }
+
+	@Override
+	public String toString() {
+		return "Users [uId=" + uId + ", userId=" + userId + ", partner=" + partner + ", tiers=" + tiers
+				+ ", totalPoints=" + totalPoints + ", date=" + date + ", expiry=" + expiry + "]";
+	}
     
    
 

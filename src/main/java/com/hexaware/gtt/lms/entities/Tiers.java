@@ -119,5 +119,14 @@ public class Tiers {
         this.couponProbability = couponProbability;
     }
 
+	@Override
+	public String toString() {
+		return "Tiers [tierId=" + tierId + ", partner=" + partner + ", tierName=" + tierName + ", triggerAmount="
+				+ triggerAmount + ", triggerDuration=" + triggerDuration + ", accrualMultiplier=" + accrualMultiplier
+				+ ", redemptionLimitOfPurchase=" + redemptionLimitOfPurchase + ", conversion=" + conversion
+				+ ", description=" + description + ", couponProbability=" + couponProbability + ", colour=" + colour
+				+ "]";
+	}
+
     
 }
