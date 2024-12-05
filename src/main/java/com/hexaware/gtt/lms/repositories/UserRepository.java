@@ -21,4 +21,5 @@ public interface UserRepository extends JpaRepository<Users, UUID> {
 	UUID findUIdByPartnerIdAndUserId(@Param("partnerId") UUID partnerId, @Param("userId") Long userId);
 	
 	Users findByUId(UUID uId);
+
 }
