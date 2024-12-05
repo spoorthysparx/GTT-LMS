@@ -8,15 +8,19 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.gtt.lms.dto.PointsAmountRequestDto;
 import com.hexaware.gtt.lms.dto.PointsAmountResponseDto;
+import com.hexaware.gtt.lms.dto.TransactionDto;
+import com.hexaware.gtt.lms.dto.TransactionRequestDto;
 import com.hexaware.gtt.lms.dto.UserCouponRequestDto;
 import com.hexaware.gtt.lms.dto.UserCouponResponseDto;
 import com.hexaware.gtt.lms.dto.UserValidationDto;
 import com.hexaware.gtt.lms.entities.Coupons;
 import com.hexaware.gtt.lms.entities.Tiers;
+import com.hexaware.gtt.lms.entities.Transactions;
 import com.hexaware.gtt.lms.entities.UserCoupons;
 import com.hexaware.gtt.lms.entities.Users;
 import com.hexaware.gtt.lms.repositories.CouponRepository;
 import com.hexaware.gtt.lms.repositories.TiersRepository;
+import com.hexaware.gtt.lms.repositories.TransactionRepository;
 import com.hexaware.gtt.lms.repositories.UserCouponRepository;
 import com.hexaware.gtt.lms.repositories.UserRepository;
 import com.hexaware.gtt.lms.services.TransactionService;
@@ -34,6 +38,10 @@ public class TransactionServiceImpl implements TransactionService{
 	private UserCouponRepository userCouponRepository;
 	@Autowired
 	private UserCouponService userCouponService;
+	@Autowired
+	private TransactionRepository transactionRepository;
+	@Autowired
+	private CouponRepository couponRepository;
 
 	
 	
@@ -93,6 +101,22 @@ public class TransactionServiceImpl implements TransactionService{
 
 
 
+	}
+
+	@Override
+	public TransactionDto createTransaction(TransactionRequestDto transactionRequestDto) {
+		Transactions transaction =  modelMapper.map(transactionRequestDto, Transactions.class); 
+//		 Transactions(UUID transId, Users users, long paymentId, Coupons coupons, TransType transactionType,
+//					double pointsGained, double pointsSpent, double amount)
+		UUID uId=userRepository.findUIdByPartnerIdAndUserId(transactionRequestDto.getPartnerId(),transactionRequestDto.getUserId());
+		Users user=userRepository.findByUId(uId);
+		user.setTotalPoints(user.getTotalPoints()+transactionRequestDto.getPointsGained()-transactionRequestDto.getPointsSpent());
+		userRepository.save(user);
+		transaction.setUsers(user);
+		transaction.setCoupons(couponRepository.getById(transactionRequestDto.getCouponId()));
+		transactionRepository.save(transaction);
+		TransactionDto transactionDto =  modelMapper.map(transaction, TransactionDto.class); 
+		return transactionDto;
 	}
 	
 	

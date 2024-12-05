@@ -35,79 +35,106 @@ public class Transactions {
     @Enumerated(EnumType.STRING)
     private TransType transactionType;
 
-    private int pointsGainedOrLost;
+    private double pointsGained;
+    private double pointsSpent;
     private double amount;
 
     @Column(updatable = false)
     private final LocalDateTime creationDate = LocalDateTime.now();
 
-    public UUID getTransId() {
-        return transId;
-    }
+	public Transactions() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    public void setTransId(UUID transId) {
-        this.transId = transId;
-    }
+	public Transactions(UUID transId, Users users, long paymentId, Coupons coupons, TransType transactionType,
+			double pointsGained, double pointsSpent, double amount) {
+		super();
+		this.transId = transId;
+		this.users = users;
+		this.paymentId = paymentId;
+		this.coupons = coupons;
+		this.transactionType = transactionType;
+		this.pointsGained = pointsGained;
+		this.pointsSpent = pointsSpent;
+		this.amount = amount;
+	}
 
-    public Users getUsers() {
-        return users;
-    }
+	public UUID getTransId() {
+		return transId;
+	}
 
-    public void setUsers(Users users) {
-        this.users = users;
-    }
+	public void setTransId(UUID transId) {
+		this.transId = transId;
+	}
 
-    public long getPaymentId() {
-        return paymentId;
-    }
+	public Users getUsers() {
+		return users;
+	}
 
-    public void setPaymentId(long paymentId) {
-        this.paymentId = paymentId;
-    }
+	public void setUsers(Users users) {
+		this.users = users;
+	}
 
-    public Coupons getCoupons() {
-        return coupons;
-    }
+	public long getPaymentId() {
+		return paymentId;
+	}
 
-    public void setCoupons(Coupons coupons) {
-        this.coupons = coupons;
-    }
+	public void setPaymentId(long paymentId) {
+		this.paymentId = paymentId;
+	}
 
-    public TransType getTransactionType() {
-        return transactionType;
-    }
+	public Coupons getCoupons() {
+		return coupons;
+	}
 
-    public void setTransactionType(TransType transactionType) {
-        this.transactionType = transactionType;
-    }
+	public void setCoupons(Coupons coupons) {
+		this.coupons = coupons;
+	}
 
-    public int getPointsGainedOrLost() {
-        return pointsGainedOrLost;
-    }
+	public TransType getTransactionType() {
+		return transactionType;
+	}
 
-    public void setPointsGainedOrLost(int pointsGainedOrLost) {
-        this.pointsGainedOrLost = pointsGainedOrLost;
-    }
+	public void setTransactionType(TransType transactionType) {
+		this.transactionType = transactionType;
+	}
 
-    public double getAmount() {
-        return amount;
-    }
+	public double getPointsGained() {
+		return pointsGained;
+	}
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+	public void setPointsGained(double pointsGained) {
+		this.pointsGained = pointsGained;
+	}
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
+	public double getPointsSpent() {
+		return pointsSpent;
+	}
+
+	public void setPointsSpent(double pointsSpent) {
+		this.pointsSpent = pointsSpent;
+	}
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public LocalDateTime getCreationDate() {
+		return creationDate;
+	}
 
 	@Override
 	public String toString() {
 		return "Transactions [transId=" + transId + ", users=" + users + ", paymentId=" + paymentId + ", coupons="
-				+ coupons + ", transactionType=" + transactionType + ", pointsGainedOrLost=" + pointsGainedOrLost
-				+ ", amount=" + amount + ", creationDate=" + creationDate + "]";
+				+ coupons + ", transactionType=" + transactionType + ", pointsGained=" + pointsGained + ", pointsSpent="
+				+ pointsSpent + ", amount=" + amount + ", creationDate=" + creationDate + "]";
 	}
-    
-    
+
+   
 
 }
