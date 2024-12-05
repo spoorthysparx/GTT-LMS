@@ -54,6 +54,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", uId));
     }
 
+
     @Override
     public Users updateUser(UserDto userDto, UUID uId) throws ResourceNotFoundException {
         Users users = userRepository.findById(uId)

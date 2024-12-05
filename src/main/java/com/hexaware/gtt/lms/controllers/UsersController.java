@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.gtt.lms.dto.OffersDto;
 import com.hexaware.gtt.lms.dto.OffersResponseDto;
+import com.hexaware.gtt.lms.dto.QuitQResponseDto;
 import com.hexaware.gtt.lms.dto.UserDto;
 import com.hexaware.gtt.lms.dto.UserResponseDto;
 import com.hexaware.gtt.lms.entities.Offers;
 import com.hexaware.gtt.lms.entities.Users;
 import com.hexaware.gtt.lms.exception.ResourceNotFoundException;
 import com.hexaware.gtt.lms.services.UserService;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("api/v1/lms/users")
@@ -34,6 +36,9 @@ public class UsersController {
 	
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+    private RestTemplate restTemplate;
 	
 	@PostMapping("/createUser")
 	public ResponseEntity<UserResponseDto> createUser(@RequestBody UserDto userDto) throws ResourceNotFoundException{
@@ -61,6 +66,17 @@ public class UsersController {
 		UserResponseDto userResponseDto= this.modelMapper.map(user,UserResponseDto.class);
 		return ResponseEntity.ok(userResponseDto);
 	}
+
+	@GetMapping("/getUserIdById")
+	public ResponseEntity<UserResponseDto>  getUserIdById(@RequestParam("uId") UUID uid) throws ResourceNotFoundException{
+		Users user = this.userService.getUserById(uid);
+		Long userId = user.getUserId();
+		QuitQResponseDto quitQResponseDto = restTemplate.getForObject("http://localhost:8081/api/v1/quitq/customer/getcustomer/{id}", QuitQResponseDto.class, userId);
+		UserResponseDto userResponseDto= this.modelMapper.map(user,UserResponseDto.class);
+		userResponseDto.setQuitQResponseDto(quitQResponseDto);
+		return ResponseEntity.ok(userResponseDto);
+	}
+
 	
 	@PutMapping("/updateUser")
    public ResponseEntity<UserResponseDto> updateUsers(@RequestBody UserDto usersDto,@RequestParam("uId") UUID u_id) throws ResourceNotFoundException {
