@@ -2,12 +2,12 @@ package com.hexaware.gtt.lms.dto;
 
 public class PointsAmountResponseDto {
 
-	private Double amount;
+	private Double amountToBePaid;
 	private Double spentPoints;
 	private Double receivedPoints;
-	public PointsAmountResponseDto(Double amount, Double spentPoints, Double receivedPoints) {
+	public PointsAmountResponseDto(Double amountToBePaid, Double spentPoints, Double receivedPoints) {
 		super();
-		this.amount = amount;
+		this.amountToBePaid = amountToBePaid;
 		this.spentPoints = spentPoints;
 		this.receivedPoints = receivedPoints;
 	}
@@ -15,11 +15,11 @@ public class PointsAmountResponseDto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Double getAmount() {
-		return amount;
+	public Double getAmountToBePaid() {
+		return amountToBePaid;
 	}
-	public void setAmount(Double amount) {
-		this.amount = amount;
+	public void setAmountToBePaid(Double amountToBePaid) {
+		this.amountToBePaid = amountToBePaid;
 	}
 	public Double getSpentPoints() {
 		return spentPoints;
@@ -33,6 +33,7 @@ public class PointsAmountResponseDto {
 	public void setReceivedPoints(Double receivedPoints) {
 		this.receivedPoints = receivedPoints;
 	}
+	
 	
 	
 

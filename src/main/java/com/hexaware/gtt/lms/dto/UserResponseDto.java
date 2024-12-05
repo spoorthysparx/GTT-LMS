@@ -11,9 +11,11 @@ public class UserResponseDto {
 	private UUID uId;
     private long userId;
     private Tiers tiers;
-    private Partner partners;
+   // private Partner partners;
     private int totalPoints;
     private LocalDateTime expiry;
+
+    private QuitQResponseDto quitQResponseDto;
 
     public long getUserId() {
         return userId;
@@ -55,13 +57,21 @@ public class UserResponseDto {
 		this.uId = uId;
 	}
 
-	public Partner getPartners() {
-		return partners;
-	}
+	// public Partner getPartners() {
+	// 	return partners;
+	// }
 
-	public void setPartners(Partner partners) {
-		this.partners = partners;
-	}
+	// public void setPartners(Partner partners) {
+	// 	this.partners = partners;
+	// }
+
+    public QuitQResponseDto getQuitQResponseDto() {
+        return quitQResponseDto;
+    }
+
+    public void setQuitQResponseDto(QuitQResponseDto quitQResponseDto) {
+        this.quitQResponseDto = quitQResponseDto;
+    }
 	
 	
     

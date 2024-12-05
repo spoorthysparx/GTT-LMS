@@ -11,7 +11,7 @@ public class FreeTiersDto {
 	@NotNull
     private double accrualMultiplier;/* for the multiplier of points*/
 	@NotNull
-    private int redemptionLimitOfPurchase; /* limit of how much points can be spent for purchase*/
+    private double redemptionLimitOfPurchase; /* limit of how much points can be spent for purchase*/
 	@NotNull
     private double conversion; /* point to money value */
 	@NotEmpty
@@ -39,11 +39,11 @@ public class FreeTiersDto {
 		this.accrualMultiplier = accrualMultiplier;
 	}
 
-	public int getRedemptionLimitOfPurchase() {
+	public double getRedemptionLimitOfPurchase() {
 		return redemptionLimitOfPurchase;
 	}
 
-	public void setRedemptionLimitOfPurchase(int redemptionLimitOfPurchase) {
+	public void setRedemptionLimitOfPurchase(double redemptionLimitOfPurchase) {
 		this.redemptionLimitOfPurchase = redemptionLimitOfPurchase;
 	}
 

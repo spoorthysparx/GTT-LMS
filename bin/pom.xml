@@ -30,28 +30,18 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-<<<<<<< HEAD
-=======
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
->>>>>>> a92bac5a30dd1c3e496a12d17893c2152170332a
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-<<<<<<< HEAD
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-=======
->>>>>>> a92bac5a30dd1c3e496a12d17893c2152170332a
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
@@ -74,12 +64,9 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<<<<<<< HEAD
-=======
 		
 		
 		
->>>>>>> a92bac5a30dd1c3e496a12d17893c2152170332a
 		<dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
@@ -88,8 +75,6 @@
     		<groupId>jakarta.transaction</groupId>
     		<artifactId>jakarta.transaction-api</artifactId>
 		</dependency>
-<<<<<<< HEAD
-=======
 		
 		<!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
 		<dependency>
@@ -106,7 +91,6 @@
 
 		</dependency>
 
->>>>>>> a92bac5a30dd1c3e496a12d17893c2152170332a
 	</dependencies>
 
 	<build>
