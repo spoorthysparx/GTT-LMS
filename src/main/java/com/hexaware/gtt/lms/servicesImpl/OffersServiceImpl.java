@@ -65,7 +65,6 @@ public class OffersServiceImpl implements OffersService {
         offer.setOfferDescription(offers.getOfferDescription());
         offer.setOfferTitle(offers.getOfferTitle());
         offer.setTiers(tiers);
-        offer.setStartDate(offers.getStartDate());
         offer.setStatus(offers.isStatus());
 
         return this.offersRepository.save(offer);

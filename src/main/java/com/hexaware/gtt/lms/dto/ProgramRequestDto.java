@@ -1,7 +1,10 @@
 package com.hexaware.gtt.lms.dto;
 
+import java.util.UUID;
+
 public class ProgramRequestDto {
 	private String programName;
+	 private UUID partnerId;
 	private boolean status;
 	
 
@@ -10,11 +13,14 @@ public class ProgramRequestDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProgramRequestDto(String programName, boolean status) {
+	
+	public ProgramRequestDto(String programName, UUID partnerId, boolean status) {
 		super();
 		this.programName = programName;
+		this.partnerId = partnerId;
 		this.status = status;
 	}
+
 
 	public String getProgramName() {
 		return programName;
@@ -32,10 +38,24 @@ public class ProgramRequestDto {
 		this.status = status;
 	}
 
+	public UUID getPartnerId() {
+		return partnerId;
+	}
+
+
+	public void setPartnerId(UUID partnerId) {
+		this.partnerId = partnerId;
+	}
+
+
 	@Override
 	public String toString() {
-		return "ProgramRequestDto [programName=" + programName + ", status=" + status + "]";
+		return "ProgramRequestDto [programName=" + programName + ", partnerId=" + partnerId + ", status=" + status
+				+ "]";
 	}
+
+
+	
 
 
 

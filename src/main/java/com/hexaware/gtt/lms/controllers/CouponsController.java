@@ -41,7 +41,7 @@ public class CouponsController {
 	public ResponseEntity<CouponsResponseDto> createCoupons(@RequestBody CouponsDto couponsDto) throws ResourceNotFoundException {
 		Coupons coupons=this.couponsService.createCoupons(couponsDto);
 		CouponsResponseDto couponResponseDto=this.modelMapper.map(coupons,CouponsResponseDto.class);
-		couponResponseDto.setTiers(coupons.getTiers());
+		couponResponseDto.setTierId(coupons.getTiers().getTierId());
 		
 		return ResponseEntity.ok(couponResponseDto);
 	}
@@ -52,6 +52,7 @@ public class CouponsController {
 		List<CouponsResponseDto> couponsResponseDtoList=new ArrayList<>();
 		for(Coupons coupon : couponsList) {
 			CouponsResponseDto couponsResponseDto=this.modelMapper.map(coupon, CouponsResponseDto.class);
+			couponsResponseDto.setTierId(coupon.getTiers().getTierId());
 			couponsResponseDtoList.add(couponsResponseDto);
 			
 		}
