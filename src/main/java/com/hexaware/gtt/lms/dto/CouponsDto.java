@@ -8,7 +8,7 @@ public class CouponsDto {
 	
 	private UUID couponId;
     private UUID tierId;
- 
+    private UUID programId;
 	private String couponTitle;
 	private String couponDescription;
 	private int validity;
@@ -19,6 +19,25 @@ public class CouponsDto {
  
     
    
+	public CouponsDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public CouponsDto(UUID couponId, UUID tierId, UUID programId, String couponTitle, String couponDescription,
+			int validity, double maxLimit, double percentage, boolean status) {
+		super();
+		this.couponId = couponId;
+		this.tierId = tierId;
+		this.programId = programId;
+		this.couponTitle = couponTitle;
+		this.couponDescription = couponDescription;
+		this.validity = validity;
+		this.maxLimit = maxLimit;
+		this.percentage = percentage;
+		this.status = status;
+	}
+
 	public String getCouponTitle() {
         return couponTitle;
     }
@@ -82,6 +101,22 @@ public class CouponsDto {
 	public void setPercentage(double percentage) {
 		this.percentage = percentage;
 	}
+
+	public UUID getProgramId() {
+		return programId;
+	}
+
+	public void setProgramId(UUID programId) {
+		this.programId = programId;
+	}
+
+	@Override
+	public String toString() {
+		return "CouponsDto [couponId=" + couponId + ", tierId=" + tierId + ", programId=" + programId + ", couponTitle="
+				+ couponTitle + ", couponDescription=" + couponDescription + ", validity=" + validity + ", maxLimit="
+				+ maxLimit + ", percentage=" + percentage + ", status=" + status + "]";
+	}
+	
 	
 	
  
