@@ -19,6 +19,10 @@ public class Offers {
     private UUID offerId;
 
     @ManyToOne
+    @JoinColumn(name="program_id", nullable=false)
+    private Program program;
+    
+    @ManyToOne
     @JoinColumn(name = "tier_id", nullable=false, updatable=false)
     private Tiers tiers;
 
@@ -96,6 +100,14 @@ public class Offers {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	public Program getProgram() {
+		return program;
+	}
+
+	public void setProgram(Program program) {
+		this.program = program;
 	}
 
     

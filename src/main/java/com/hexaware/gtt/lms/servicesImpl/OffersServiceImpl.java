@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.gtt.lms.dto.OffersDto;
 import com.hexaware.gtt.lms.entities.Offers;
+import com.hexaware.gtt.lms.entities.Program;
 import com.hexaware.gtt.lms.entities.Tiers;
 import com.hexaware.gtt.lms.exception.ResourceNotFoundException;
 import com.hexaware.gtt.lms.repositories.OffersRepository;
+import com.hexaware.gtt.lms.repositories.ProgramRepository;
 import com.hexaware.gtt.lms.repositories.TiersRepository;
 import com.hexaware.gtt.lms.services.OffersService;
 
@@ -20,6 +22,8 @@ public class OffersServiceImpl implements OffersService {
     private OffersRepository offersRepository;
     @Autowired
     private TiersRepository tiersRepository;
+    @Autowired
+    private ProgramRepository programRepository;
     private ModelMapper modelMapper;
 
     @Autowired
@@ -39,6 +43,9 @@ public class OffersServiceImpl implements OffersService {
         Offers offers = this.modelMapper.map(offersDto, Offers.class);
         Tiers tiers = this.tiersRepository.findById(offersDto.getTierId())
             .orElseThrow(() -> new ResourceNotFoundException("Tier", "id", offersDto.getTierId()));
+        System.out.println("program id: "+ offersDto.getProgramId());
+        Program program =programRepository.findById(offersDto.getProgramId()).orElse(null);
+        offers.setProgram(program);
         offers.setTiers(tiers);
         return this.offersRepository.save(offers);
     }
