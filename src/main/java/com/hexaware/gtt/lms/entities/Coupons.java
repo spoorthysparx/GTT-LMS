@@ -2,6 +2,8 @@ package com.hexaware.gtt.lms.entities;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +19,7 @@ public class Coupons {
 	private UUID couponId;
 	@ManyToOne
 	@JoinColumn(name = "program_id", nullable = false)
+	 @JsonBackReference
 	private Program program;
 	@ManyToOne
 	@JoinColumn(name = "tier_id")
