@@ -6,15 +6,32 @@ public class OffersDto {
 
 	private UUID offerId;
 	private UUID tierId;
-    private String offerTitle;
-    private String offerDescription;
-    private String imageUrl;
-    private int benefit;
-    private boolean status;
-    
-    
+	private UUID programId;
+	private String offerTitle;
+	private String offerDescription;
+	private String imageUrl;
+	private int benefit;
+	private boolean status;
 
-    public UUID getOfferId() {
+	public OffersDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public OffersDto(UUID offerId, UUID tierId, UUID programId, String offerTitle, String offerDescription,
+			String imageUrl, int benefit, boolean status) {
+		super();
+		this.offerId = offerId;
+		this.tierId = tierId;
+		this.programId = programId;
+		this.offerTitle = offerTitle;
+		this.offerDescription = offerDescription;
+		this.imageUrl = imageUrl;
+		this.benefit = benefit;
+		this.status = status;
+	}
+
+	public UUID getOfferId() {
 		return offerId;
 	}
 
@@ -31,36 +48,36 @@ public class OffersDto {
 	}
 
 	public String getOfferTitle() {
-        return offerTitle;
-    }
+		return offerTitle;
+	}
 
-    public void setOfferTitle(String offerTitle) {
-        this.offerTitle = offerTitle;
-    }
+	public void setOfferTitle(String offerTitle) {
+		this.offerTitle = offerTitle;
+	}
 
-    public String getOfferDescription() {
-        return offerDescription;
-    }
+	public String getOfferDescription() {
+		return offerDescription;
+	}
 
-    public void setOfferDescription(String offerDescription) {
-        this.offerDescription = offerDescription;
-    }
+	public void setOfferDescription(String offerDescription) {
+		this.offerDescription = offerDescription;
+	}
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+	public String getImageUrl() {
+		return imageUrl;
+	}
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
-    public int getBenefit() {
-        return benefit;
-    }
+	public int getBenefit() {
+		return benefit;
+	}
 
-    public void setBenefit(int benefit) {
-        this.benefit = benefit;
-    }
+	public void setBenefit(int benefit) {
+		this.benefit = benefit;
+	}
 
 	public boolean isStatus() {
 		return status;
@@ -69,6 +86,20 @@ public class OffersDto {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-    
-}
 
+	public UUID getProgramId() {
+		return programId;
+	}
+
+	public void setProgramId(UUID programId) {
+		this.programId = programId;
+	}
+
+	@Override
+	public String toString() {
+		return "OffersDto [offerId=" + offerId + ", tierId=" + tierId + ", programId=" + programId + ", offerTitle="
+				+ offerTitle + ", offerDescription=" + offerDescription + ", imageUrl=" + imageUrl + ", benefit="
+				+ benefit + ", status=" + status + "]";
+	}
+
+}
