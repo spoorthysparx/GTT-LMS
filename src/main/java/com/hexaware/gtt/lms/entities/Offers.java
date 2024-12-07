@@ -1,9 +1,9 @@
 package com.hexaware.gtt.lms.entities;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
-import jakarta.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +20,7 @@ public class Offers {
 
     @ManyToOne
     @JoinColumn(name="program_id", nullable=false)
+    @JsonBackReference
     private Program program;
     
     @ManyToOne
@@ -30,8 +31,6 @@ public class Offers {
     private String offerDescription;
     private String imageUrl;
 
-    @Column(updatable = false)
-    private LocalDateTime startDate = LocalDateTime.now();
 
     private int benefit;
     private boolean status;
@@ -76,14 +75,6 @@ public class Offers {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
     }
 
     public int getBenefit() {

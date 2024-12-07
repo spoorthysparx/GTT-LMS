@@ -6,85 +6,115 @@ import com.hexaware.gtt.lms.entities.Tiers;
 
 public class CouponsResponseDto {
 
-	    private Tiers tier;
-	    private UUID couponId;
-		private String couponTitle;
-		private String couponDescription;
-		private int validity;
-		private double percentage;
-		private double maxLimit;
-	 
-		private boolean status;
+	private UUID tierId;
+	private UUID couponId;
+	private UUID programId;
+	private String couponTitle;
+	private String couponDescription;
+	private int validity;
+	private double percentage;
+	private double maxLimit;
 
-	    
-	   
+	private boolean status;
 
-		public Tiers getTiers() {
-			return tier;
-		}
+	public CouponsResponseDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-		public void setTiers(Tiers tiers) {
-			this.tier = tiers;
-		}
+	public CouponsResponseDto(UUID tierId, UUID couponId, UUID programId, String couponTitle, String couponDescription,
+			int validity, double percentage, double maxLimit, boolean status) {
+		super();
+		this.tierId = tierId;
+		this.couponId = couponId;
+		this.programId = programId;
+		this.couponTitle = couponTitle;
+		this.couponDescription = couponDescription;
+		this.validity = validity;
+		this.percentage = percentage;
+		this.maxLimit = maxLimit;
+		this.status = status;
+	}
 
-		
+	public UUID getTierId() {
+		return tierId;
+	}
 
-		public UUID getCouponId() {
-			return couponId;
-		}
+	public void setTierId(UUID tierId) {
+		this.tierId = tierId;
+	}
 
-		public void setCouponId(UUID couponId) {
-			this.couponId = couponId;
-		}
+	public UUID getCouponId() {
+		return couponId;
+	}
 
-		public String getCouponTitle() {
-	        return couponTitle;
-	    }
+	public void setCouponId(UUID couponId) {
+		this.couponId = couponId;
+	}
 
-	    public void setCouponTitle(String couponTitle) {
-	        this.couponTitle = couponTitle;
-	    }
+	public UUID getProgramId() {
+		return programId;
+	}
 
-	    public String getCouponDescription() {
-	        return couponDescription;
-	    }
+	public void setProgramId(UUID programId) {
+		this.programId = programId;
+	}
 
-	    public void setCouponDescription(String couponDescription) {
-	        this.couponDescription = couponDescription;
-	    }
+	public String getCouponTitle() {
+		return couponTitle;
+	}
 
-	    public int getValidity() {
-	        return validity;
-	    }
+	public void setCouponTitle(String couponTitle) {
+		this.couponTitle = couponTitle;
+	}
 
-	    public void setValidity(int validity) {
-	        this.validity = validity;
-	    }
+	public String getCouponDescription() {
+		return couponDescription;
+	}
 
+	public void setCouponDescription(String couponDescription) {
+		this.couponDescription = couponDescription;
+	}
 
+	public int getValidity() {
+		return validity;
+	}
 
-	    public double getPercentage() {
-			return percentage;
-		}
+	public void setValidity(int validity) {
+		this.validity = validity;
+	}
 
-		public void setPercentage(double percentage) {
-			this.percentage = percentage;
-		}
+	public double getPercentage() {
+		return percentage;
+	}
 
-		public double getMaxLimit() {
-			return maxLimit;
-		}
+	public void setPercentage(double percentage) {
+		this.percentage = percentage;
+	}
 
-		public void setMaxLimit(double maxLimit) {
-			this.maxLimit = maxLimit;
-		}
+	public double getMaxLimit() {
+		return maxLimit;
+	}
 
-		public boolean isStatus() {
-	        return status;
-	    }
+	public void setMaxLimit(double maxLimit) {
+		this.maxLimit = maxLimit;
+	}
 
-	    public void setStatus(boolean status) {
-	        this.status = status;
-	    }
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "CouponsResponseDto [tierId=" + tierId + ", couponId=" + couponId + ", programId=" + programId
+				+ ", couponTitle=" + couponTitle + ", couponDescription=" + couponDescription + ", validity=" + validity
+				+ ", percentage=" + percentage + ", maxLimit=" + maxLimit + ", status=" + status + "]";
+	}
+
+	
 
 }
