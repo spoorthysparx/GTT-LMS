@@ -11,6 +11,6 @@ import com.hexaware.gtt.lms.dto.UserCouponResponseDto;
 public interface TransactionService {
 	public PointsAmountResponseDto finalAmount(PointsAmountRequestDto pointsAmountRequestDto);
 	public UserCouponResponseDto applyCoupon(UserCouponRequestDto userCouponRequestDto);
-	public TransactionDto createTransaction(TransactionRequestDto transactionRequestDto);
+	public TransactionDto createTransaction(TransactionRequestDto transactionRequestDto) throws Exception;
 
 }

@@ -101,5 +101,23 @@ public class PartnerServiceImpl implements PartnerService {
 			return true;
 		}
 	}
+	
+	
+	public String loginPartner(String email,String pwd)
+	{
+		Partner part=partnerRepository.findByEmail(email);
+		String emil=part.getEmail();
+		String paswd=part.getPassword();
+		if(email==emil&&pwd==paswd)
+		{
+			return "Login in Successful";
+		}
+		else
+		{
+			return "Login failed due to Invadlid Credentials";
+			}
+				
+	}
+ 
  
 }
