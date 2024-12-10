@@ -3,7 +3,7 @@ package com.hexaware.gtt.lms.entities;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -36,7 +36,7 @@ public class Program {
 	@ManyToOne
 	@JoinColumn(name = "partner_id", nullable = false, updatable = false)
 	private Partner partner;
-
+	
 	private LocalDateTime startDate;
 	private LocalDateTime endDate;
 

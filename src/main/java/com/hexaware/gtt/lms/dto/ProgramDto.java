@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hexaware.gtt.lms.entities.Coupons;
 import com.hexaware.gtt.lms.entities.Offers;
 
@@ -15,7 +16,10 @@ public class ProgramDto {
 	private List<Coupons> coupons;
 	private List<Offers> offers;
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
 	private LocalDateTime startDate;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
 	private LocalDateTime endDate;
 	public ProgramDto() {
 		super();

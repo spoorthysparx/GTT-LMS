@@ -54,7 +54,7 @@ public class ProgramServiceImpl implements ProgramService {
 		}
 		else {
 			prg.setProgramName(programDto.getProgramName());
-			prg.setStartDate(programDto.getEndDate());
+			prg.setStartDate(programDto.getStartDate());
 			prg.setEndDate(programDto.getEndDate());
 			prg.setStatus(programDto.isStatus());
 			Program savedProgram = programRepository.save(prg);
@@ -79,4 +79,12 @@ public class ProgramServiceImpl implements ProgramService {
 			return true;
 		}
 	}
+
+	@Override
+	public Program getProgramById(UUID id) {
+		Program prg=this.programRepository.findById(id).orElse(null);
+		return prg;
+	}
+	
+	
 }
