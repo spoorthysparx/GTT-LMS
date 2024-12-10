@@ -40,7 +40,14 @@ public class TransactionController {
 	
 	@PostMapping("/newTransaction")
 	public ResponseEntity<?> newTransaction(@RequestBody TransactionRequestDto transactionRequestDto){
-		TransactionDto transactionDto = transactionService.createTransaction(transactionRequestDto);
-		return ResponseEntity.ok(transactionRequestDto);
+		try {
+			TransactionDto transactionDto = transactionService.createTransaction(transactionRequestDto);
+			return ResponseEntity.ok(transactionRequestDto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ResponseEntity.ok(e.getMessage());
+		}
+		
 	}
 }

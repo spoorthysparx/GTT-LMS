@@ -21,4 +21,6 @@ public interface PartnerService {
 	Partner updatePartner(String email, PartnerDto partnerDto) throws ResourceNotFoundException;
  
 	boolean deletePartner(UUID id) throws ResourceDeletionException;
+	
+	public String loginPartner(String email,String pwd);
 }
