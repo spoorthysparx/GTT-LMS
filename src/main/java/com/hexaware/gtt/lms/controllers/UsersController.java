@@ -53,11 +53,16 @@ public class UsersController {
 	private TiersRepository tierRepository;
 	
 	@PostMapping("/createUser")
-	public ResponseEntity<UserResponseDto> createUser(@RequestBody QuitQRegistrationDto quitQRegistrationDto) throws ResourceNotFoundException{
-	    Users user=userService.createUsers(quitQRegistrationDto);
-	    UserResponseDto userResponseDto=modelMapper.map(user, UserResponseDto.class);
-	    return ResponseEntity.ok(userResponseDto);
-	    
+	public ResponseEntity<?> createUser(@RequestBody QuitQRegistrationDto quitQRegistrationDto){ 
+	   try { 
+		   Users user=userService.createUsers(quitQRegistrationDto);
+		   UserResponseDto userResponseDto=modelMapper.map(user, UserResponseDto.class);
+		   return ResponseEntity.ok(userResponseDto);
+		 }catch(ResourceNotFoundException e){
+			 return  ResponseEntity.ok(e.getMessage()); 		
+		 }catch(Exception q){
+			 return ResponseEntity.ok(q.getMessage());
+		 }	    
 	}
 
 	

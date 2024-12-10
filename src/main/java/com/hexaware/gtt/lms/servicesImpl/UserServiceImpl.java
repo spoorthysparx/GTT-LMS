@@ -84,12 +84,23 @@ public class UserServiceImpl implements UserService {
                                                 userDto.getPartnerId()));
                 users.setPartner(partners);
 
-                Tiers tiers = tiersRepository.findById(userDto.getTierId())
-                                .orElseThrow(() -> new ResourceNotFoundException("Tier", "id", userDto.getTierId()));
-                users.setTiers(tiers);
+//                Tiers tiers = tiersRepository.findById(userDto.getTierId())
+//                                .orElseThrow(() -> new ResourceNotFoundException("Tier", "id", userDto.getTierId()));
+//                users.setTiers(tiers);
+                
+                //user can not update tiers
 
                 return userRepository.save(users);
         }
+        
+        @Override
+        public Users updateUsersTier(UUID uid,Tiers tier) throws ResourceNotFoundException {
+        	System.out.println("entered update tier method");
+        	Users user = userRepository.findById(uid).orElseThrow(() -> new ResourceNotFoundException("User", "uid", uid));
+        	user.setTiers(tier);
+        	return userRepository.save(user);
+        }
+     
 
         @Override
         public String deleteUser(UUID uId) throws ResourceNotFoundException {
