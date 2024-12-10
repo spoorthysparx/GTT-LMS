@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ import com.hexaware.gtt.lms.services.CouponsService;
  
 @RestController
 @RequestMapping("/api/v1/lms/coupons")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CouponsController {
 	
 	private CouponsService couponsService;

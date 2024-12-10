@@ -3,11 +3,17 @@ package com.hexaware.gtt.lms.dto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ProgramRequestDto {
 	private String programName;
 	 private UUID partnerId;
 	private boolean status;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
 	private LocalDateTime startDate;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
 	private LocalDateTime endDate;
 
 	public ProgramRequestDto() {
