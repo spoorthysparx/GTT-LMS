@@ -75,7 +75,10 @@ public class UsersController {
 	@GetMapping("/getUserById")
 	public ResponseEntity<UserResponseDto> getUserById(@RequestParam("uId") UUID uid) throws ResourceNotFoundException{
 		Users user = this.userService.getUserById(uid);
+		Long userId = user.getUserId();
+		QuitQResponseDto quitQResponseDto = restTemplate.getForObject("http://localhost:8081/api/v1/quitq/customer/getcustomer/{id}", QuitQResponseDto.class, userId);
 		UserResponseDto userResponseDto= this.modelMapper.map(user,UserResponseDto.class);
+		userResponseDto.setQuitQResponseDto(quitQResponseDto);
 		return ResponseEntity.ok(userResponseDto);
 	}
 

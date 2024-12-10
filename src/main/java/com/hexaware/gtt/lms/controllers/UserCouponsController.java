@@ -53,7 +53,7 @@ public class UserCouponsController {
 				UserCoupons userCoupons =userCouponService.generateCoupon(couponGenerationDto);
 				userCouponDto=modelmapper.map(userCoupons, UserCouponDto.class);
 				userCouponDto.setuId(userCoupons.getUsers().getuId());
-				//userCouponDto.setCouponId(couponId);
+				userCouponDto.setCouponId(couponId);
 				System.out.println("User coupon"+ userCouponDto);
 			}
 			else {

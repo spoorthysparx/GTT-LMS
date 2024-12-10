@@ -3,7 +3,7 @@ package com.hexaware.gtt.lms.dto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.hexaware.gtt.lms.entities.Partner;
+//import com.hexaware.gtt.lms.entities.Partner;
 import com.hexaware.gtt.lms.entities.Tiers;
 
 public class UserResponseDto {
