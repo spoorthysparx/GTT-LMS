@@ -112,5 +112,13 @@ public class PartnerController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}
 	}
+	
+	@GetMapping("partnerLogin/")
+	public ResponseEntity<String> Loginpartner(@RequestParam ("email") String email,@RequestParam("pwd") String pswd)
+	{
+		String part=partnerService.loginPartner(email, pswd);
+		return ResponseEntity.ok(part);
+	}
+ 
 
 }
