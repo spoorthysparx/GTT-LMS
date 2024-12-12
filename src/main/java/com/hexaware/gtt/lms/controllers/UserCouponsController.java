@@ -117,6 +117,16 @@ public class UserCouponsController {
 		}
 		return ResponseEntity.ok(userCouponDtoList);
 	}
+
+	@GetMapping("getUser/")
+	public UUID finduid(@RequestBody UserPartnerDto userPartnerDto) {
+		return this.userCouponService.finduid(userPartnerDto);
+	}
+
+	@GetMapping("/getUserByparam")
+	public UUID finduidbyuserAndPartner(@RequestParam Long userId,@RequestParam UUID partnerId) {
+		return this.userCouponService.finduidbyuserAndPartner(userId, partnerId);
+	}
 	}
 	
 
