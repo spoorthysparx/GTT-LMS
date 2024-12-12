@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
- 
+
+import com.hexaware.gtt.lms.dto.Logindto;
 import com.hexaware.gtt.lms.dto.PartnerDto;
 import com.hexaware.gtt.lms.entities.Partner;
 import com.hexaware.gtt.lms.exception.DuplicateDataException;
@@ -116,11 +117,14 @@ public class PartnerController {
 	}
 	
 	@GetMapping("/partnerLogin")
-	public ResponseEntity<String> Loginpartner(@RequestParam ("email") String email,@RequestParam("pwd") String pswd)
+	public ResponseEntity<?> Loginpartner(@RequestParam ("email") String email,@RequestParam("pwd") String pswd)
 	{
-		String part=partnerService.loginPartner(email, pswd);
+		Logindto part=partnerService.loginPartner(email, pswd);
+		if(part!=null)
 		return ResponseEntity.ok(part);
+		else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("invalid Credentials");
+		}
 	}
- 
 
 }
