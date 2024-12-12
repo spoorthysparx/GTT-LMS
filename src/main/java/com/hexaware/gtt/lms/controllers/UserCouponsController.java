@@ -49,7 +49,7 @@ public class UserCouponsController {
 			float couponProbability=userCouponService.findProbablity(tierId);
 			UUID couponId=userCouponService.getCouponId(tierId);
 			UserCouponDto userCouponDto;
-			if(userCouponService.awardCoupon(couponProbability)) {
+			if(userCouponService.awardCoupon(couponProbability) && couponId!=null) {
 				CouponGenerationDto couponGenerationDto = new CouponGenerationDto(couponId,uId);
 				UserCoupons userCoupons =userCouponService.generateCoupon(couponGenerationDto);
 				userCouponDto=modelmapper.map(userCoupons, UserCouponDto.class);
@@ -92,26 +92,27 @@ public class UserCouponsController {
 	}
 	
 	//http://localhost:8080/lms/api/v1/userCoupons/getActiveCoupons?uId=cd2b00bb-3a35-4e6d-8950-b083fada5a03
-	@GetMapping("/getAllUserCoupons")
+	@GetMapping("/getActiveCoupons")
 	public ResponseEntity<?> listOfActiveCoupons(@RequestParam("uId") UUID uId){
 		List<UserCoupons> userCoupons=userCouponService.listOfActiveCoupons(uId);
 		List<UserCouponDto> userCouponDtoList=new ArrayList<>();
 		for(UserCoupons u: userCoupons) {
 			UserCouponDto userCouponDto=this.modelmapper.map(u, UserCouponDto.class);
 			userCouponDto.setuId(u.getUsers().getuId());
-			//userCouponDto.setCouponId(couponId);
+			userCouponDto.setCouponId(u.getCoupons().getCouponId());
 			userCouponDtoList.add(userCouponDto);
 		}
 		return ResponseEntity.ok(userCouponDtoList);
 	}
+	//http://localhost:8080/lms/api/v1/userCoupons/getAllUserCoupons?uId=cd2b00bb-3a35-4e6d-8950-b083fada5a03
 	@GetMapping("getAllUserCoupons/")
-	public ResponseEntity<?> listOfAllCoupons(@RequestParam UUID uId){
+	public ResponseEntity<?> listOfAllCoupons(@RequestParam("uId") UUID uId){
 		List<UserCoupons> userCoupons=userCouponService.listOfAllCoupons(uId);
 		List<UserCouponDto> userCouponDtoList=new ArrayList<>();
 		for(UserCoupons u:userCoupons) {
 			UserCouponDto userCouponDto=this.modelmapper.map(u, UserCouponDto.class);
 			userCouponDto.setuId(u.getUsers().getuId());
-			//userCouponDto.setCouponId(couponId);
+			userCouponDto.setCouponId(u.getCoupons().getCouponId());
 			userCouponDtoList.add(userCouponDto);
 		}
 		return ResponseEntity.ok(userCouponDtoList);

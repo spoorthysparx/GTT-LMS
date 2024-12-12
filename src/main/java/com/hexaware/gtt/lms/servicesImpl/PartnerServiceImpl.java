@@ -108,7 +108,7 @@ public class PartnerServiceImpl implements PartnerService {
 		Partner part=partnerRepository.findByEmail(email);
 		String emil=part.getEmail();
 		String paswd=part.getPassword();
-		if(email==emil&&pwd==paswd)
+		if(emil==email&&paswd==pwd)
 		{
 			return "Login in Successful";
 		}
