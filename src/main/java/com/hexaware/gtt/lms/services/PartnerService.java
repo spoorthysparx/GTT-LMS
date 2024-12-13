@@ -24,10 +24,4 @@ public interface PartnerService {
 	boolean deletePartner(UUID id) throws ResourceDeletionException;
 	
 	public Logindto loginPartner(String email,String pwd);
-	
-	public List<Partner> getApprovedPartners();
-	
-	public List<Partner> getRejectedPartners();
-	
-	public List<Partner> getNewPartners();
 }
