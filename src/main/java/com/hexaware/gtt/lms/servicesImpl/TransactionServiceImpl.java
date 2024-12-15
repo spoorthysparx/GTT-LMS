@@ -39,6 +39,7 @@ import com.hexaware.gtt.lms.entities.Transactions;
 import com.hexaware.gtt.lms.entities.UserCoupons;
 
 import com.hexaware.gtt.lms.entities.Users;
+import com.hexaware.gtt.lms.enums.TransType;
 import com.hexaware.gtt.lms.repositories.CouponRepository;
 
 import com.hexaware.gtt.lms.repositories.TiersRepository;
@@ -301,6 +302,8 @@ public class TransactionServiceImpl implements TransactionService{
 //					double pointsGained, double pointsSpent, double amount)
 
 		UUID uId=userRepository.findUIdByPartnerIdAndUserId(transactionRequestDto.getPartnerId(),transactionRequestDto.getUserId());
+
+		System.out.println("user" + uId);
 		Users user=userRepository.findByUId(uId);
 		user.setTotalPoints(user.getTotalPoints()+transactionRequestDto.getPointsGained()-transactionRequestDto.getPointsSpent());
 		//Tier Updation for user
@@ -309,13 +312,47 @@ public class TransactionServiceImpl implements TransactionService{
 		Users settedUser = userRepository.save(user);
 		Users finalUser = userTierUpdationTransaction(settedUser,transactionRequestDto,uId);
 		transaction.setUsers(finalUser);
-		transaction.setCoupons(couponRepository.getById(transactionRequestDto.getCouponId()));
+		if(transactionRequestDto.getCouponId() != null){
+			transaction.setCoupons(couponRepository.getById(transactionRequestDto.getCouponId()));
+		}
+		else{
+			transaction.setCoupons(null);
+		}
+		if(transactionRequestDto.getPointsSpent()>0){
+			transaction.setTransactionType(TransType.REDEMPTION);
+		}
+		else{
+			transaction.setTransactionType(TransType.ACCRUAL);
+		}
+		//transaction.setCoupons(couponRepository.getById(transactionRequestDto.getCouponId()));
 		transactionRepository.save(transaction);
 		TransactionDto transactionDto =  modelMapper.map(transaction, TransactionDto.class);
 		return transactionDto;
 
 	}
 
+	@Override
+	public PointsAmountResponseDto getAccrualPoints(PointsAmountRequestDto pointsAmountRequestDto) {
+ 
+		UUID uId=userRepository.findUIdByPartnerIdAndUserId(pointsAmountRequestDto.getPartnerId(),pointsAmountRequestDto.getUserId());
+ 
+		Users user=userRepository.findByUId(uId);
+ 
+		Tiers tiers=tiersRepository.findById(user.getTiers().getTierId()).get();
+ 
+		Double amountToBePaid = pointsAmountRequestDto.getAmount();
+ 
+		PointsAmountResponseDto pointsAmountResponseDto=new PointsAmountResponseDto();
+ 
+		pointsAmountResponseDto.setSpentPoints(0.0);
+ 
+		pointsAmountResponseDto.setReceivedPoints(tiers.getAccrualMultiplier()*amountToBePaid);
+		
+		pointsAmountResponseDto.setAmountToBePaid(amountToBePaid);
+ 
+		return pointsAmountResponseDto;
+ 
+	}
  
 }
 
