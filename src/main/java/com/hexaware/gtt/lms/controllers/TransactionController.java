@@ -46,8 +46,17 @@ public class TransactionController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return ResponseEntity.ok(e.getMessage());
+			return ResponseEntity.ok(e.getMessage());	
 		}
 		
 	}
+
+	@PostMapping("/getAccrualPoints")
+	public ResponseEntity<?> getAccrualPoints(@RequestBody PointsAmountRequestDto pointsAmountRequestDto) {
+		PointsAmountResponseDto pointsAmountResponseDto=this.transactionService.getAccrualPoints(pointsAmountRequestDto);
+		return ResponseEntity.ok(pointsAmountResponseDto);
+	}
+ 
+ 
+ 
 }

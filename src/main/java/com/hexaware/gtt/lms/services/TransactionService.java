@@ -12,5 +12,5 @@ public interface TransactionService {
 	public PointsAmountResponseDto finalAmount(PointsAmountRequestDto pointsAmountRequestDto);
 	public UserCouponResponseDto applyCoupon(UserCouponRequestDto userCouponRequestDto);
 	public TransactionDto createTransaction(TransactionRequestDto transactionRequestDto) throws Exception;
-
+	public PointsAmountResponseDto getAccrualPoints(PointsAmountRequestDto pointsAmountRequestDto);
 }
